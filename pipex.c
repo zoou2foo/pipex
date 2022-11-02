@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/02 16:19:04 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/02 19:29:58 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **envp)
 		data->av = av;
 		data->envp = envp;
 		data->path_line = -1;
-		find_path(data);
+		fill_tab(data);
 	}
 }
 

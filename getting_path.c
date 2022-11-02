@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 09:07:11 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/02 16:19:51 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/02 19:30:57 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 void	find_path(t_data *data)
 {
-	int index = 0;
 	fill_tab_env(data);
-	while (data->paths[index])
-	{
-		printf("%s\n", data->paths[index]);
-		index++;
-	}
 }
 
 void	fill_tab_env(t_data *data)
