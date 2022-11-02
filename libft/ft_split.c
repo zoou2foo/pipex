@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 09:45:00 by vjean             #+#    #+#             */
-/*   Updated: 2022/10/25 11:44:43 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/02 15:39:54 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,21 @@ static int	ft_count_word(char const *s, char limite)
 	return (words);
 }
 
-char	**ft_split(char const *s, char c, int i)
+static int	shorten_split(const char *s, char c)
+{
+	if (ft_strchr(s, c))
+		return (ft_strchr(s, c) - s);
+	return (ft_strlen(s));
+}
+
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	int		words;
 	int		len;
+	int		i;
 
+	i = -1;
 	if (!s)
 		return (NULL);
 	words = ft_count_word(s, c);
@@ -47,10 +56,7 @@ char	**ft_split(char const *s, char c, int i)
 	{
 		while (*s && *s == c)
 			s++;
-		if (ft_strchr(s, c))
-			len = ft_strchr(s, c) - s;
-		else
-			len = ft_strlen(s);
+		len = shorten_split(s, c);
 		tab[i] = ft_substr(s, 0, len);
 		s += len;
 	}

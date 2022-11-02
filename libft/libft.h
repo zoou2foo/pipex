@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:21:21 by vjean             #+#    #+#             */
-/*   Updated: 2022/10/25 11:45:01 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/02 11:21:04 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
-char	**ft_split(char const *s, char c, int i);
+char	**ft_split(char const *s, char c);
 char	*ft_strrchr(char *s, int c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -53,6 +53,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 long	ft_atol(const char *str);
+void	freetab(void **tab);
 
 typedef struct s_list
 {
