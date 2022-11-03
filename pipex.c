@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/03 09:29:43 by valeriejean      ###   ########.fr       */
+/*   Updated: 2022/11/03 17:48:33 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,22 @@ int	main(int ac, char **av, char **envp)
 	t_data	*data;
 
 	data = ft_calloc(sizeof(t_data), 1);
-	if (ac == 3) // à mettre == 5
+	if (ac == 5) // à mettre == 5
 	{
 		data->ac = ac;
 		data->av = av;
 		data->envp = envp;
 		data->path_line = -1;
 		fill_tab_env(data);
-		find_cmd(data);
+		//find_cmd(data);
 		check_files(data);
+		find_cmds(data);
 	}
+}
+
+void	find_path(t_data *data)
+{
+	fill_tab_env(data);
 }
 
 // & Now, besoin de mettre le tout ensemble. Avec les 5 arguments...

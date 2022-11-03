@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/03 09:21:52 by valeriejean      ###   ########.fr       */
+/*   Updated: 2022/11/03 17:26:38 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ typedef struct s_data{
 /* functions to check arguments received */
 void	find_path(t_data *data);
 void	fill_tab_env(t_data *data);
-char	*find_cmd(t_data *data);
-void    check_files(t_data *data);
+//char	*find_cmd(t_data *data);
+void	find_cmds(t_data *data);
+void	check_files(t_data *data);
 
 /* functions to fork and pipe */
 

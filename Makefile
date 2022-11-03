@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+         #
+#    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/03 08:08:03 by valeriejean      ###   ########.fr        #
+#    Updated: 2022/11/03 15:16:17 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,11 @@ CC = gcc
 
 CFLAGS = -g -Wall -Wextra -Werror
 
+#*****INTRO*****
+define intro
+@bash pew_pew.sh
+endef
+
 .c.o:
 		@$(CC)$(CFLAGS) -c $< -o $(<:.c=.o)
 
@@ -32,8 +37,10 @@ RM = rm -fr
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	$(call intro)
 	cd libft && make
 		@$(CC) $(OBJS) $(LIBFT) -o $(NAME)
+		
 exec: re $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./pipex
 
