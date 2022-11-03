@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
+#    By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/02 09:21:39 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/03 08:08:03 by valeriejean      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = pipex.c getting_path.c \
+SRCS = pipex.c parsing.c \
 
 LIBFT =	libft/libft.a
 
