@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
+/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/02 19:29:58 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/02 20:58:41 by valeriejean      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ int	main(int ac, char **av, char **envp)
 	}
 }
 
+// TODO fonction pour trouver si une commande existe.
+// TODO 1. regarder si les commandes existent; 2. gérer les erreurs si la commande
+// TODO n'existe pas. 3. Vérifier que les fichiers passés en args existent. 4.
+// TODO comprendre pipe. 5. Faire pipe et redirection. 6. Comprendre fork.
+// TODO 7. Faire fork() 8. Comprendre et comment il fonctionne execve 9. execve
+// TODO 10. gérer les erreurs si execve fail.  
+// ~ Basically, il faut que je me balade dans mon tab 2d (paths) et que je
+// ~ strjoin la cmd reçu dans av[1] et av[2]. Même si la commande n'existe pas,
+// ~ envoyer le résultat à execve(), la fonction va se charger d'un message d'erreur
 // vérifier où se trouve la commande dans les paths. Si pas là, retourne le nom
 // de la commande non trouvé. Même s'il n'existe pas, on l'envoie
 // a execv pis il s'occupe de renvoyer erreur. But: feed les bons arguments
