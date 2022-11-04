@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/03 17:48:33 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/04 16:55:35 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	find_path(t_data *data)
 {
 	fill_tab_env(data);
 }
-
-// & Now, besoin de mettre le tout ensemble. Avec les 5 arguments...
+// split des commandes. Exemple "grep a". Un devra être fait dans le parent et
+// autre dans child. 
+// & NEXT: pipe et fork()
 // ! Ajouter les protections à ce que j'ai fait so far. Free des trucs
 // TODO 1. regarder si les commandes existent; 2. gérer les erreurs si la commande
 // TODO n'existe pas. 3. Vérifier que les fichiers passés en args existent. 4.

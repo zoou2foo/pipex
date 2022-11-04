@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 08:05:05 by valeriejean       #+#    #+#             */
-/*   Updated: 2022/11/03 17:50:29 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/04 16:26:48 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,14 @@ void	find_cmds(t_data *data)
 	i = 0;
 	j = 2;
 	printf("%d\n", data->ac);
-	while (data->paths[i])
+	while (data->av[j] && j < data->ac - 2)
 	{
-		while (data->av[j] && data->av[data->ac - 2])
+		while (data->paths[i])
 		{
 			tmp = ft_strjoin(data->paths[i], data->av[j]);
 			if (access(tmp, F_OK | X_OK) == 0)
 			{
-				printf("%s\n", tmp);
-				return ;
+				printf("Trouvé: %s\n", tmp);
 			}
 			i++;
 		}
@@ -65,12 +64,12 @@ void	find_cmds(t_data *data)
 
 void	check_files(t_data *data)
 {
-	printf("what the fuck am I doing???");
+	printf("what the fuck am I doing???\n");
 	while (data->av[1] && data->av[data->ac - 1])
 	{
 		if (access(data->av[1], F_OK) == 0 && access(data->av[data->ac - 1], F_OK) == 0)
 		{
-			printf("went through access");
+			printf("went through access\n");
 			return ;
 		}
 	}
