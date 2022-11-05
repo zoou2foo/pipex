@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 08:05:05 by valeriejean       #+#    #+#             */
-/*   Updated: 2022/11/04 16:26:48 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/05 11:37:22 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	find_cmds(t_data *data)
 	}
 }
 
+// ! Check_files to adapt to look at the file in av[1] and the file at av[ac -1]
 void	check_files(t_data *data)
 {
 	printf("what the fuck am I doing???\n");
@@ -74,31 +75,3 @@ void	check_files(t_data *data)
 		}
 	}
 }
-
-// char	*find_cmd(t_data *data)
-// {
-// 	int		i;
-// 	char	*tmp;
-
-// 	i = 0;
-// 	while (data->paths[i])
-// 	{
-// 		tmp = ft_strjoin(data->paths[i], data->av[2]);
-// 		if (access(tmp, F_OK | X_OK) == 0)
-// 		{
-// 			printf("%s\n", tmp);
-// 			return (tmp);
-// 		}
-// 		i++;
-// 	}
-// 	return (NULL);
-// } 
-
-// void	check_files(t_data *data)
-// {
-// 	if (access(data->av[1], F_OK) == 0)
-// 	{
-// 		printf("%s\n", data->av[1]);
-// 		return ;
-// 	}
-// }
