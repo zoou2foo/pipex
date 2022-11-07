@@ -6,13 +6,13 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/05 11:37:51 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/07 13:05:38 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = pipex.c parsing.c main.c \
+SRCS = pipex.c main.c utils.c work_in_processes.c \
 
 LIBFT =	libft/libft.a
 

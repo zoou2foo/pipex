@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/07 08:15:00 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/07 10:17:33 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,17 @@ int	main(int ac, char **av, char **envp)
 	t_data	*data;
 
 	data = ft_calloc(sizeof(t_data), 1);
-	if (ac == 5) // à mettre == 5
+	if (ac == 5)
 	{
-		data->ac = ac;
-		data->av = av;
-		data->envp = envp;
-		data->path_line = -1;
+		init_struct(ac, av, envp, data);
 		fill_tab_env(data);
-		//find_cmd(data);
-		check_files(data);
-		find_cmds(data);
+		pipex(data);
 	}
+	else
+		write(2, "Error: not enough arguments\n", 28);
+	return (0);
 }
 
-void	find_path(t_data *data)
-{
-	fill_tab_env(data);
-}
 // split des commandes. Exemple "grep a". Un devra être fait dans le parent et
 // autre dans child. 
 // & NEXT: pipe et fork()

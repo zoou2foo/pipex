@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions_to_keep.c                                :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 08:13:50 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/07 08:14:13 by vjean            ###   ########.fr       */
+/*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
+/*   Updated: 2022/11/07 12:58:05 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	init_struct(int ac, char **av, char **envp, t_data *data)
+{
+	data->ac = ac;
+	data->av = av;
+	data->envp = envp;
+	data->path_line = -1;
+}
 
 void	fill_tab_env(t_data *data)
 {
@@ -38,40 +46,35 @@ void	fill_tab_env(t_data *data)
 	exit(0);
 }
 
-void	find_cmds(t_data *data)
+//2 child et 3 parent qui devient mon index pour find_cmd
+char	*find_cmd(t_data *data, int index)
 {
 	int		i;
-	int		j;
-	char	*tmp;
+	char	*cmd;
 
 	i = 0;
-	j = 2;
-	printf("%d\n", data->ac);
-	while (data->av[j] && j < data->ac - 2)
+	while (data->paths[i])
 	{
-		while (data->paths[i])
+		cmd = ft_strjoin(data->paths[i], data->av[index]);
+		if (access(cmd, F_OK | X_OK) == 0)
 		{
-			tmp = ft_strjoin(data->paths[i], data->av[j]);
-			if (access(tmp, F_OK | X_OK) == 0)
-			{
-				printf("Trouvé: %s\n", tmp);
-			}
-			i++;
+			printf("Trouvé: %s\n", cmd);
+			return (cmd);
 		}
-		j++;
+		i++;
 	}
+	return (NULL);
 }
 
-// ! Check_files to adapt to look at the file in av[1] and the file at av[ac -1]
-void	check_files(t_data *data)
+int	check_files(t_data *data)
 {
-	printf("what the fuck am I doing???\n");
 	while (data->av[1] && data->av[data->ac - 1])
 	{
-		if (access(data->av[1], F_OK) == 0 && access(data->av[data->ac - 1], F_OK) == 0)
+		if (access(data->av[1], F_OK) == 0)
 		{
 			printf("went through access\n");
-			return ;
+			return (0);
 		}
 	}
+	return (1);
 }
