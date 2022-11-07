@@ -6,14 +6,9 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/05 11:57:28 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/07 08:14:35 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	init_processes(t_data *data)
-{
-	int	pipe_fd[3][2];
-	int	i;
-}

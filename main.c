@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/05 11:33:34 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/07 08:15:00 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,5 @@ void	find_path(t_data *data)
 // TODO 10. gérer les erreurs si execve fail.  
 // ~ Basically, il faut que je me balade dans mon tab 2d (paths) et que je
 // ~ strjoin la cmd reçu dans av[1] et av[2]. Même si la commande n'existe pas,
-// ~ envoyer le résultat à execve(), la fonction va se charger d'un message d'erreur
-// Même s'il n'existe pas, on l'envoie
-// a execv pis il s'occupe de renvoyer erreur. But: feed les bons arguments
-// à execv.
-// fonction pour ramasser le retour lorsque la commande est trouvé => split pour
-// qu'execv regarde l'option. Ex: "ls -l", qu'il prenne -l
-// execve(char *cmd_path, char **args)
-// grep t a  path = /bin/grep args = {grep, t, a, 0}
+// ~ envoyer le résultat à execve(), la fonction va se charger d'un message
+// ~ d'erreur
