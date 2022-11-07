@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/07 12:58:05 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/07 14:58:40 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_struct(int ac, char **av, char **envp, t_data *data)
 	data->path_line = -1;
 }
 
+// ! fill_tab_env need to call freetab
 void	fill_tab_env(t_data *data)
 {
 	int	i;
@@ -66,13 +67,21 @@ char	*find_cmd(t_data *data, int index)
 	return (NULL);
 }
 
-int	check_files(t_data *data)
+int	check_files(t_data *data, int index)
 {
-	while (data->av[1] && data->av[data->ac - 1])
+	if (index == 4)
+	{
+		if (access(data->av[4], F_OK) == 0)
+		{
+			printf("found file parent\n");
+			return (0);
+		}
+	}
+	else if (index == 1)
 	{
 		if (access(data->av[1], F_OK) == 0)
 		{
-			printf("went through access\n");
+			printf("found file child\n");
 			return (0);
 		}
 	}
