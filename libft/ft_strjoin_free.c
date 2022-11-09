@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 11:41:35 by vjean            ###   ########.fr       */
+/*   Created: 2022/11/09 11:50:15 by vjean             #+#    #+#             */
+/*   Updated: 2022/11/09 13:42:20 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*nstr;
 	size_t	i;
@@ -20,8 +20,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	s1len;
 	size_t	s2len;
 
-	if (!s1 || !s2)
-		return (NULL);
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
 	nstr = (char *)malloc((s1len + s2len + 1) * (sizeof(char)));

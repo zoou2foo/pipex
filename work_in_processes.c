@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 09:42:51 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 13:35:59 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,28 @@ void	execute_child(t_data *data, char *cmd_path, char **cmd)
 	dup2(fd_in, 0);
 	dup2(data->pipe_fd[1], 1);
 	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
+	//close(data->pipe_fd[1]);
 	close(fd_in);
-	execve(cmd_path, cmd, data->envp);
+	if (execve(cmd_path, cmd, data->envp) != 0)
+	{
+		write(2, "Error: cannot execute command\n", 31);
+		exit (0);
+	}	
 }
 
 void	execute_parent(t_data *data, char *cmd_path, char **cmd)
 {
 	int		fd_out;
 
-	fd_out = open(data->av[4], O_WRONLY | O_CREAT, 0777);
-	dup2(data->pipe_fd[0], 0);
+	fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	dup2(fd_out, 1);
-	close(data->pipe_fd[0]);
+	dup2(data->pipe_fd[0], 0);
+	//close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(fd_out);
-	execve(cmd_path, cmd, data->envp);
+	if (execve(cmd_path, cmd, data->envp) != 0)
+	{
+		write(2, "Error: cannot execute command\n", 31);
+		exit (0);
+	}
 }

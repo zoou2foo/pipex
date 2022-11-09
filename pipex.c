@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 09:41:05 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 14:27:00 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 // TODO free stuff in exit for function pipex
 void	pipex(t_data *data)
 {
-	int		pipe_fd[2];
+	// int		pipe_fd[2];
 	int		pid1;
 
-	data->pipe_fd = pipe_fd;
-	if (pipe(pipe_fd) == -1)
+	// data->pipe_fd = pipe_fd;
+	if (pipe(data->pipe_fd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 23);
 		exit (0);
@@ -32,6 +32,9 @@ void	pipex(t_data *data)
 	}
 	else if (pid1 == 0)
 		child_process(data);
+	pid2 = fork();
+	if (pid2 == -1)
+	else if (pid2 == 0) //child 2
 	waitpid(pid1, NULL, 0);
 	parent_process(data);
 }
@@ -49,12 +52,15 @@ void	child_process(t_data *data)
 		exit (0);
 	}
 	cmd = ft_split(data->av[2], ' ');
-	cmd_path = find_cmd(data, 2, cmd[0]);
+	printf("cmd child: %s\n", cmd[0]);
+	cmd_path = find_cmd(data, cmd[0]);
+	printf("in child: %s\n", cmd_path);
 	if (!cmd_path)
 	{
-		write(2, "Error: command does not exist(parent)\n", 38);
+		write(2, "Error: command does not exist(child)\n", 38);
 		exit (0);
 	}
+	printf("ta yeule!\n");
 	execute_child(data, cmd_path, cmd);
 }
 
@@ -65,13 +71,14 @@ void	parent_process(t_data *data)
 	char	*cmd_path;
 	char	**cmd;
 
-	if (check_files(data, 4) == 1)
-	{
-		write(2, "Error: file does not exist (in)\n", 32);
-		exit (0);
-	}
+	// if (check_files(data, 4) == 1)
+	// {
+	// 	write(2, "Error: file does not exist (in)\n", 32);
+	// 	exit (0);
+	// }
 	cmd = ft_split(data->av[3], ' ');
-	cmd_path = find_cmd(data, 3, cmd[0]);
+	printf("cmd parent: %s\n", cmd[0]);
+	cmd_path = find_cmd(data, cmd[0]);
 	printf("In parent: %s\n", cmd_path);
 	if (cmd_path == NULL)
 	{

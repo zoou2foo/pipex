@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 09:42:40 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 14:08:37 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,24 @@ void	fill_tab_env(t_data *data)
 }
 
 //2 child et 3 parent qui devient mon index pour find_cmd
-char	*find_cmd(t_data *data, int index, char *cmd_tab)
+char	*find_cmd(t_data *data, char *cmd_tab)
 {
 	int		i;
 	char	*cmd;
 
 	i = 0;
-	while (data->paths[i])
+	while (data->paths[i++])
 	{
-		if (index == 3)
+		printf("mon data->paths: %s\n", data->paths[i]);
+		cmd = ft_strjoin_free(data->paths[i], cmd_tab);
+		if (access(cmd, F_OK | X_OK) == 0)
 		{
-			cmd = ft_strjoin(data->paths[i], &cmd_tab[0]);
-			if (access(cmd, F_OK | X_OK) == 0)
-			{
-				printf("Trouvé: %s\n", cmd);
-				return (cmd);
-			}
+			printf("Trouvé: %s\n", cmd);
+			return (cmd);
 		}
-		if (index == 2)
-		{
-			cmd = ft_strjoin(data->paths[i], &cmd_tab[0]);
-			if (access(cmd, F_OK | X_OK) == 0)
-			{
-				printf("Trouvé: %s\n", cmd);
-				return (cmd);
-			}
-		}
-		i++;
+		free(cmd);
 	}
+	printf("ta yeule!\n");
 	return (NULL);
 }
 
