@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 09:38:03 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 16:32:41 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_data{
 	int		ac;
 	char	**av;
 	char	**envp;
-	int		path_line;
 	char	**paths;
 	int		*pipe_fd;
 }	t_data;
@@ -41,8 +40,8 @@ int		check_files(t_data *data, int index);
 void	pipex(t_data *data);
 void	child_process(t_data *data);
 void	execute_child(t_data *data, char *cmd_path, char **cmd);
-void	execute_parent(t_data *data, char *cmd_path, char **cmd);
-void	parent_process(t_data *data);
+void	execute_child2(t_data *data, char *cmd_path, char **cmd);
+void	child2_process(t_data *data);
 
 
 

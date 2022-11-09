@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 09:42:40 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 15:59:13 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_struct(int ac, char **av, char **envp, t_data *data)
 	data->ac = ac;
 	data->av = av;
 	data->envp = envp;
-	data->path_line = -1;
 }
 
 // ! fill_tab_env need to call freetab
