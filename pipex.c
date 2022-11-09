@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/07 15:44:18 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 09:41:05 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,43 @@ void	pipex(t_data *data)
 // TODO free stuff in exit for function child_process
 void	child_process(t_data *data)
 {
-	char	*cmd;
+	char	*cmd_path;
+	char	**cmd;
 
 	if (check_files(data, 1) == 1)
 	{
 		write(2, "Error: file does not exist (in)\n", 32);
 		exit (0);
 	}
-	cmd = find_cmd(data, 2);
-	if (!cmd)
+	cmd = ft_split(data->av[2], ' ');
+	cmd_path = find_cmd(data, 2, cmd[0]);
+	if (!cmd_path)
 	{
 		write(2, "Error: command does not exist(parent)\n", 38);
 		exit (0);
 	}
-	printf("pew pew\n");
-	execute_child(data, cmd);
+	execute_child(data, cmd_path, cmd);
 }
 
 // parent_process takes cmd2 and fileout
 // TODO free stuff in exit for function pipex
 void	parent_process(t_data *data)
 {
-	char	*cmd;
+	char	*cmd_path;
+	char	**cmd;
 
 	if (check_files(data, 4) == 1)
 	{
 		write(2, "Error: file does not exist (in)\n", 32);
 		exit (0);
 	}
-	cmd = find_cmd(data, 3);
-	printf("In parent: %s\n", cmd);
-	if (cmd == NULL)
+	cmd = ft_split(data->av[3], ' ');
+	cmd_path = find_cmd(data, 3, cmd[0]);
+	printf("In parent: %s\n", cmd_path);
+	if (cmd_path == NULL)
 	{
 		write(2, "Error: command does not exist(parent)\n", 38);
 		exit (0);
 	}
-	execute_parent(data, cmd);
+	execute_parent(data, cmd_path, cmd);
 }

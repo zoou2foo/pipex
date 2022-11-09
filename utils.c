@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/07 14:58:40 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/09 09:42:40 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	fill_tab_env(t_data *data)
 }
 
 //2 child et 3 parent qui devient mon index pour find_cmd
-char	*find_cmd(t_data *data, int index)
+char	*find_cmd(t_data *data, int index, char *cmd_tab)
 {
 	int		i;
 	char	*cmd;
@@ -56,11 +56,23 @@ char	*find_cmd(t_data *data, int index)
 	i = 0;
 	while (data->paths[i])
 	{
-		cmd = ft_strjoin(data->paths[i], data->av[index]);
-		if (access(cmd, F_OK | X_OK) == 0)
+		if (index == 3)
 		{
-			printf("Trouvé: %s\n", cmd);
-			return (cmd);
+			cmd = ft_strjoin(data->paths[i], &cmd_tab[0]);
+			if (access(cmd, F_OK | X_OK) == 0)
+			{
+				printf("Trouvé: %s\n", cmd);
+				return (cmd);
+			}
+		}
+		if (index == 2)
+		{
+			cmd = ft_strjoin(data->paths[i], &cmd_tab[0]);
+			if (access(cmd, F_OK | X_OK) == 0)
+			{
+				printf("Trouvé: %s\n", cmd);
+				return (cmd);
+			}
 		}
 		i++;
 	}
