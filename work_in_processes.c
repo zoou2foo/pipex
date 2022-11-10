@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:13:13 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/10 15:39:43 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	execute_child(t_data *data, char *cmd_path, char **cmd)
 	close(fd_in);
 	close(data->pipe_fd[1]);
 	execve(cmd_path, cmd, data->envp);
-	ft_freetab(data->envp);
+	free_all_tab(data);
 	free(data);
 	exit (0);
 }
@@ -39,7 +39,7 @@ void	execute_child2(t_data *data, char *cmd_path, char **cmd)
 	close(data->pipe_fd[1]);
 	close(fd_out);
 	execve(cmd_path, cmd, data->envp);
-	ft_freetab(data->envp);
+	free_all_tab(data);
 	free(data);
 	exit (0);
 }

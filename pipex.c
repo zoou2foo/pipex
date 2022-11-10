@@ -6,13 +6,12 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:11:46 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/10 15:38:25 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// TODO free stuff in exit for function pipex
 void	pipex(t_data *data)
 {
 	int	pipe_fd[2];
@@ -23,12 +22,14 @@ void	pipex(t_data *data)
 	if (pipe(pipe_fd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
+		free_all_tab(data);
 		exit (0);
 	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
+		free_all_tab(data);
 		exit (0);
 	}
 	else if (pid1 == 0)
@@ -37,11 +38,12 @@ void	pipex(t_data *data)
 	if (pid2 == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
+		free_all_tab(data);
 		exit (0);
 	}
 	else if (pid2 == 0)
 		child2_process(data);
-	ft_freetab(data->envp);
+	free_all_tab(data);
 	free(data);
 }
 
@@ -53,7 +55,7 @@ void	child_process(t_data *data)
 	if (check_files(data, 1) == 1)
 	{
 		write(2, "Error: file does not exist (child1)\n", 37);
-		ft_freetab(data->envp);
+		free_all_tab(data);
 		free(data);
 		exit (0);
 	}
@@ -62,7 +64,7 @@ void	child_process(t_data *data)
 	if (!cmd_path)
 	{
 		write(2, "Error: command does not exist(child1)\n", 39);
-		ft_freetab(data->envp);
+		free_all_tab(data);
 		free(data);
 		exit (0);
 	}
@@ -77,7 +79,7 @@ void	child2_process(t_data *data)
 	if (check_files(data, 4) == 1)
 	{
 		write(2, "Error: file does not exist (in child2)\n", 40);
-		ft_freetab(data->envp);
+		free_all_tab(data);
 		free(data);
 		exit (0);
 	}
@@ -87,7 +89,7 @@ void	child2_process(t_data *data)
 	if (cmd_path == NULL)
 	{
 		write(2, "Error: command does not exist(child2)\n", 39);
-		ft_freetab(data->envp);
+		free_all_tab(data);
 		free(data);
 		exit (0);
 	}

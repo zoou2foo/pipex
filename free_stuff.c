@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:35:53 by vjean            ###   ########.fr       */
+/*   Created: 2022/11/10 15:31:41 by vjean             #+#    #+#             */
+/*   Updated: 2022/11/10 15:34:10 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av, char **envp)
+void	free_dbl_ptr(char **ptr)
 {
-	t_data	*data;
+	int	i;
 
-	data = ft_calloc(sizeof(t_data), 1);
-	if (ac == 5)
+	if (ptr)
 	{
-		init_struct(ac, av, envp, data);
-		fill_tab_env(data);
-		pipex(data);
+		i = 0;
+		while (ptr[i])
+		{
+			free (ptr[i]);
+			i++;
+		}
+		free (ptr);
 	}
-	else
-		write(2, "Error: not enough arguments\n", 28);
-	free(data);
-	return (0);
 }
 
+void	free_all_tab(t_data *data)
+{
+	free_dbl_ptr(data->envp);
+	free_dbl_ptr(data->paths);
+	free_dbl_ptr(data->av);
+}
