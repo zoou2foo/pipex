@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:12:20 by vjean            ###   ########.fr       */
+/*   Created: 2022/11/10 11:54:16 by vjean             #+#    #+#             */
+/*   Updated: 2022/11/10 11:54:31 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include"libft.h"
 
-int	main(int ac, char **av, char **envp)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	t_data	*data;
+	char	*nstr;
+	size_t	i;
+	size_t	j;
+	size_t	s1len;
+	size_t	s2len;
 
-	data = ft_calloc(sizeof(t_data), 1);
-	if (ac == 5)
-	{
-		init_struct(ac, av, envp, data);
-		fill_tab_env(data);
-		pipex(data);
-	}
-	else
-		write(2, "Error: not enough arguments\n", 28);
-	free(data);
-	return (0);
+	s1len = ft_strlen(s1);
+	s2len = ft_strlen(s2);
+	nstr = (char *)malloc((s1len + s2len + 1) * (sizeof(char)));
+	if (!nstr)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i])
+		nstr[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		nstr[j++] = s2[i++];
+	nstr[j] = '\0';
+	return (nstr);
 }
-
-// ! Ajouter les protections à ce que j'ai fait so far. Free des trucs

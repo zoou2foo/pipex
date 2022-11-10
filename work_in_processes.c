@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 16:29:53 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/10 15:13:13 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,32 @@
 
 void	execute_child(t_data *data, char *cmd_path, char **cmd)
 {
-	int	err;
+	int	fd_in;
 
-	close(data->pipe_fd[0]);
+	fd_in = open(data->av[1], O_RDONLY, 0777);
 	dup2(data->pipe_fd[1], STDOUT_FILENO);
+	dup2(fd_in, STDIN_FILENO);
+	close(data->pipe_fd[0]);
+	close(fd_in);
 	close(data->pipe_fd[1]);
-	err = execve(cmd_path, cmd, data->envp);
-	if (err == -1)
-		perror("Error: could not execute child process\n");
-	exit (1);
+	execve(cmd_path, cmd, data->envp);
+	ft_freetab(data->envp);
+	free(data);
+	exit (0);
 }
 
 void	execute_child2(t_data *data, char *cmd_path, char **cmd)
 {
-	int	err;
+	int	fd_out;
 
-	close(data->pipe_fd[1]);
+	fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	dup2(data->pipe_fd[0], STDIN_FILENO);
+	dup2(fd_out, STDOUT_FILENO);
 	close(data->pipe_fd[0]);
-	err = execve(cmd_path, cmd, data->envp);
-	if (err == -1)
-		perror("Error: could not execute child 2 process\n");
-	exit (1);
+	close(data->pipe_fd[1]);
+	close(fd_out);
+	execve(cmd_path, cmd, data->envp);
+	ft_freetab(data->envp);
+	free(data);
+	exit (0);
 }
-
-
-// BELOW: execute_child
-	// int		fd_in;
-
-	// fd_in = open(data->av[1], O_RDONLY, 0777);
-	// dup2(fd_in, 0);
-	// dup2(data->pipe_fd[1], 1);
-	// close(data->pipe_fd[0]);
-	// close(data->pipe_fd[1]);
-	// close(fd_in);
-	// execve(cmd_path, cmd, data->envp);

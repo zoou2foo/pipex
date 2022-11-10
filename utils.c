@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/09 15:59:13 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/10 15:08:19 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	init_struct(int ac, char **av, char **envp, t_data *data)
 	data->envp = envp;
 }
 
-// ! fill_tab_env need to call freetab
 void	fill_tab_env(t_data *data)
 {
 	int	i;
@@ -43,36 +42,31 @@ void	fill_tab_env(t_data *data)
 	}
 	i = 0;
 	write(2, "Environment variables not found\n", 32);
+	ft_freetab(data->envp);
 	exit(0);
 }
 
-//2 child et 3 parent qui devient mon index pour find_cmd
 char	*find_cmd(t_data *data, int index, char *cmd_tab)
 {
 	int		i;
 	char	*cmd;
 
 	i = 0;
+	(void)index;
+	if (cmd_tab[0] == '/')
+	{
+		if (access(cmd_tab, X_OK) == 0)
+			return (cmd_tab);
+	}
 	while (data->paths[i])
 	{
-		if (index == 3)
+		cmd = ft_strjoin(data->paths[i], cmd_tab);
+		if (access(cmd, F_OK | X_OK) == 0)
 		{
-			cmd = ft_strjoin(data->paths[i], &cmd_tab[0]);
-			if (access(cmd, F_OK | X_OK) == 0)
-			{
-				printf("Trouvé: %s\n", cmd);
-				return (cmd);
-			}
+			printf("Trouvé child2: %s\n", cmd);
+			return (cmd);
 		}
-		if (index == 2)
-		{
-			cmd = ft_strjoin(data->paths[i], &cmd_tab[0]);
-			if (access(cmd, F_OK | X_OK) == 0)
-			{
-				printf("Trouvé: %s\n", cmd);
-				return (cmd);
-			}
-		}
+		free(cmd);
 		i++;
 	}
 	return (NULL);
@@ -84,7 +78,7 @@ int	check_files(t_data *data, int index)
 	{
 		if (access(data->av[4], F_OK) == 0)
 		{
-			printf("found file parent\n");
+			printf("found file child2\n");
 			return (0);
 		}
 	}
@@ -92,7 +86,7 @@ int	check_files(t_data *data, int index)
 	{
 		if (access(data->av[1], F_OK) == 0)
 		{
-			printf("found file child\n");
+			printf("found file child1\n");
 			return (0);
 		}
 	}

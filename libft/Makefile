@@ -6,7 +6,7 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/05 08:45:10 by vjean             #+#    #+#              #
-#    Updated: 2022/11/02 08:55:41 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/10 11:55:07 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
 	ft_putnbr_fd.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c\
 	ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c\
 	ft_lstsize.c get_next_line.c get_next_line_utils.c ft_atol.c ft_freetab.c\
+	ft_strjoin_free.c\
 
 CC = gcc
 
