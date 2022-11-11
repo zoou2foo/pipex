@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/11 17:02:15 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:10:47 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	pipex(t_data *data)
 	}
 	else if (pid2 == 0)
 		child2_process(data);
-	fre
+	free_dbl_ptr(data->av);
+	free_dbl_ptr(data->envp);
+	free_dbl_ptr(data->paths);
+	// free(data->pipe_fd);
 }
 
 void	child_process(t_data *data)
