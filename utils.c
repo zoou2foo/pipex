@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:40:26 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/11 16:57:42 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	fill_tab_env(t_data *data)
 	}
 	i = 0;
 	write(2, "Environment variables not found\n", 32);
-	free_all_tab(data);
-	free(data);
 	exit(0);
 }
 
@@ -64,7 +62,7 @@ char	*find_cmd(t_data *data, int index, char *cmd_tab)
 		cmd = ft_strjoin(data->paths[i], cmd_tab);
 		if (access(cmd, F_OK | X_OK) == 0)
 		{
-			printf("Trouvé child2: %s\n", cmd);
+			printf("found child2: %s\n", cmd);
 			return (cmd);
 		}
 		free(cmd);

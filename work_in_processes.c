@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:39:43 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/11 17:00:42 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	execute_child(t_data *data, char *cmd_path, char **cmd)
 	close(fd_in);
 	close(data->pipe_fd[1]);
 	execve(cmd_path, cmd, data->envp);
-	free_all_tab(data);
-	free(data);
 	exit (0);
 }
 
@@ -32,14 +30,12 @@ void	execute_child2(t_data *data, char *cmd_path, char **cmd)
 {
 	int	fd_out;
 
-	fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	fd_out = open(data->av[4], O_WRONLY | O_TRUNC, 0777);
 	dup2(data->pipe_fd[0], STDIN_FILENO);
 	dup2(fd_out, STDOUT_FILENO);
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(fd_out);
 	execve(cmd_path, cmd, data->envp);
-	free_all_tab(data);
-	free(data);
 	exit (0);
 }

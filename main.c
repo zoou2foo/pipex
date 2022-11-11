@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 15:35:53 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/11 16:47:23 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int ac, char **av, char **envp)
 	}
 	else
 		write(2, "Error: not enough arguments\n", 28);
-	free(data);
 	return (0);
 }
 
