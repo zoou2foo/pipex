@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/11 16:47:23 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/14 12:42:04 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,26 @@ int	main(int ac, char **av, char **envp)
 	}
 	else
 		write(2, "Error: not enough arguments\n", 28);
+	close (data->pipe_fd[0]);
+	close (data->pipe_fd[1]);
+	free_dbl_ptr(data->paths);
+	free(data);
 	return (0);
 }
 
+// ? I think that I need to free data at the very end...
+
+/*
+
+data->path[1] = malloc
+data->path[2] = malloc
+data->path[3] = malloc
+data->path[4] = malloc
+
+data->path_slash[i] = = ft_strjoin(data->paths[i], "/");
+data->path_slash[i] = = ft_strjoin(data->paths[i], "/");
+data->path_slash[i] = = ft_strjoin(data->paths[i], "/");
+data->path_slash[i] = = ft_strjoin(data->paths[i], "/");
+
+free_dbl_ptr(data->path)
+*/

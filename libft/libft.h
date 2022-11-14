@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 11:21:21 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/10 11:54:48 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/14 11:46:56 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_putnbr_fd(int n, int fd);
 long	ft_atol(const char *str);
 void	freetab(void **tab);
 char	*ft_strjoin_free(char *s1, char *s2);
+char	*ft_strtrim_free(char *s1, char const *set);
 
 typedef struct s_list
 {

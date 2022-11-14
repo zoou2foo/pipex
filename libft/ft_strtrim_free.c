@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_stuff.c                                       :+:      :+:    :+:   */
+/*   ft_strtrim_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 15:31:41 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/14 09:18:55 by vjean            ###   ########.fr       */
+/*   Created: 2022/11/14 11:44:54 by vjean             #+#    #+#             */
+/*   Updated: 2022/11/14 11:47:10 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include"libft.h"
 
-void	free_dbl_ptr(char **ptr)
+char	*ft_strtrim_free(char *s1, char const *set)
 {
-	int	i;
+	int	end;
 
-	if (ptr)
-	{
-		i = 0;
-		while (ptr[i])
-		{
-			free (ptr[i]);
-			i++;
-		}
-		free(ptr[i]);
-		free (ptr);
-	}
-}
-
-void	free_all_tab(t_data *data)
-{
-	free_dbl_ptr(data->envp);
-	free_dbl_ptr(data->paths);
-	// free_dbl_ptr(data->av);
+	if (!s1 || !set)
+		return (NULL);
+	while (*s1 && ft_strchr(set, *s1) != NULL)
+		s1++;
+	end = ft_strlen(s1);
+	while (end && ft_strchr(set, s1[end]) != NULL)
+		end--;
+	free (s1);
+	return (ft_substr(s1, 0, end + 1));
 }

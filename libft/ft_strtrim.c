@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjean <vjean@student.42quebec.com>         +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 13:48:29 by vjean             #+#    #+#             */
-/*   Updated: 2022/05/09 13:05:20 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/14 11:42:29 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1);
 	while (end && ft_strchr(set, s1[end]) != NULL)
 		end--;
+	//free (s1);
 	return (ft_substr(s1, 0, end + 1));
 }
