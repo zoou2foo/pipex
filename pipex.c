@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/14 09:10:00 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/14 14:57:45 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	pipex(t_data *data)
 {
-	// int	pipe_fd[2];
 	int	pid1;
 	int	pid2;
 
-	// data->pipe_fd = pipe_fd;
 	if (pipe(data->pipe_fd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
@@ -40,13 +38,7 @@ void	pipex(t_data *data)
 	}
 	else if (pid2 == 0)
 		child2_process(data);
-	//free_dbl_ptr(data->av);
-	//free_dbl_ptr(data->envp);
-	//free_dbl_ptr(data->paths);
-	// free(data->pipe_fd);
 }
-// ? Even with the free function here ^ still leaks. Freeing data->pipe_fd does
-// ? not make any difference.
 
 void	child_process(t_data *data)
 {
@@ -67,8 +59,6 @@ void	child_process(t_data *data)
 	}
 	execute_child(data, cmd_path, cmd);
 }
-// ! I don't think I should try to free after "execute", as execve() will take
-// ! over. Same with child2
 
 void	child2_process(t_data *data)
 {

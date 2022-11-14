@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:31:41 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/14 09:18:55 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/14 14:58:20 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,4 @@ void	free_dbl_ptr(char **ptr)
 		free(ptr[i]);
 		free (ptr);
 	}
-}
-
-void	free_all_tab(t_data *data)
-{
-	free_dbl_ptr(data->envp);
-	free_dbl_ptr(data->paths);
-	// free_dbl_ptr(data->av);
 }

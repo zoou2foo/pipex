@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/14 12:40:23 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/14 14:58:30 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,9 @@ void	execute_child2(t_data *data, char *cmd_path, char **cmd);
 void	child2_process(t_data *data);
 
 /* functions to free stuff */
-void	free_all_tab(t_data *data);
 void	free_dbl_ptr(char **ptr);
 
 /* helpful functions to support other functions */
 int		size_of_tab(char **tab);
-
 
 #endif
