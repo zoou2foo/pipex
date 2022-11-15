@@ -6,7 +6,7 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/10 15:35:06 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/15 10:03:18 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ OBJS = $(SRCS:.c=.o)
 CC = gcc 
 
 CFLAGS = -g -Wall -Wextra -Werror
+
+BONUS_OBJS = $(BONUS:.c=.o)
 
 #*****INTRO*****
 define intro
@@ -53,5 +55,8 @@ fclean: clean
 	$(RM) $(LIBFT)
 	
 re: fclean all
+
+bonus: $(OBJS) $(BONUS_OBJS)
+		@$(AR) $(NAME) $(OBJS) $(BONUS_OBJS)
 
 .PHONY: all clean fclean re

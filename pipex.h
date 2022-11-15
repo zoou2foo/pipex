@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/14 14:58:30 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/15 10:34:02 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	free_dbl_ptr(char **ptr);
 
 /* helpful functions to support other functions */
 int		size_of_tab(char **tab);
+int		check_fds(t_data *data);
 
 #endif
