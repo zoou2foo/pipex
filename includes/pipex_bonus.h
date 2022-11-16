@@ -6,14 +6,14 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/16 11:28:16 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/16 15:08:25 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>

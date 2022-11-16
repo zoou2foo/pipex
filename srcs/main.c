@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/15 10:46:20 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/16 16:07:19 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 5)
 	{
 		init_struct(ac, av, envp, data);
-		if ((check_fds(data) == 1))
-		{
-			fill_tab_env(data);
-			pipex(data);
-		}
-		else
-			write(2, "Error: permission denied for file", 34);
+		fill_tab_env(data);
+		pipex(data);
+		// if ((check_fds(data) == 1))
+		// {
+		// }
+		// else
+		// 	write(2, "Error: permission denied for file", 34);
 	}
 	else
 		write(2, "Error: not enough arguments\n", 28);
@@ -50,3 +50,6 @@ int	check_fds(t_data *data)
 		return (0);
 	return (1);
 }
+
+// besoin de revoir mon pipex, car si fichier1 ou cmd1 n'existe pas, il faut
+// qu'il effectue quand même la cmd2 dans fichier2. Surtout si cmd2 existe.

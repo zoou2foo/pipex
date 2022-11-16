@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/16 11:28:10 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/16 15:33:07 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int	main(int ac, char **av, char **envp)
 	data = ft_calloc(sizeof(t_data), 1);
 	if (ac >= 5)
 	{
-		if (av[1] == "here_doc")
-		{
-			init_struct(ac, av, envp, data);
+		init_struct(ac, av, envp, data);
+		if (ft_strncmp(data->av[1], "here_doc", 8) == 0)
 			here_doc(data);
+		else
+		{
 			if ((check_fds(data) == 1))
 			{
 				fill_tab_env(data);
@@ -30,7 +31,7 @@ int	main(int ac, char **av, char **envp)
 			}
 			else
 				write(2, "Error: permission denied for file", 34);
-		}
+		}	
 	}
 	else
 		write(2, "Error: not enough arguments\n", 28);
@@ -62,7 +63,7 @@ void	here_doc(t_data *data)
 	while (1)
 	{
 		gnl_return = gnl_pipex();
-		if (!(ft_strncmp(gnl_return, data->av[1], ft_strlen(gnl_return))) == 0)
+		if ((ft_strncmp(gnl_return, data->av[1], ft_strlen(gnl_return))) == 0)
 			break ;
 	}
 }

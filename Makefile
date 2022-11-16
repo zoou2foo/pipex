@@ -6,14 +6,14 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/16 12:48:11 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/16 15:08:01 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 NAME_BONUS = pipex_bonus
 
-SRCS = main.c \
+SRCS = srcs/main.c \
 	srcs/pipex.c srcs/utils.c srcs/work_in_processes.c srcs/free_stuff.c \
 
 BONUS = bonus/pipex_bonus.c bonus/utils_bonus.c bonus/free_stuff_bonus.c \
@@ -35,7 +35,7 @@ define intro
 endef
 
 .c.o:
-		@$(CC)$(CFLAGS) -c $< -o $(<:.c=.o)
+		@$(CC)$(CFLAGS) -I includes -c $< -o $(<:.c=.o)
 
 #AR = ar rcs
 
@@ -46,7 +46,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(call intro)
 	cd libft && make
-		@$(CC) $(OBJS) $(LIBFT) -o $(NAME)
+		@$(CC) -I includes $(OBJS) $(LIBFT)  -o $(NAME)
 		
 exec: re $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./pipex
@@ -61,7 +61,7 @@ fclean: clean
 	
 re: fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
-		@$(AR) $(NAME) $(OBJS) $(BONUS_OBJS)
+bonus:$(BONUS_OBJS)
+		@$(CC) -I includes $(BONUS_OBJS) $(LIBFT)-o $(NAME)
 
 .PHONY: all clean fclean re
