@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/15 10:46:28 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:29:24 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,11 @@ int	check_fds(t_data *data)
 		return (0);
 	return (1);
 }
+
+/*
+To implement here_doc: it will be one of the args (in fact, av[1]). I need
+to check if av[1] = here_doc; if yes, then I send it to a function to deal with
+it. I'll need to use get_next_line. 
+AND I send send multiple commands to my here_doc as it's the bonus.
+Double check the pdf of pipex (code quoi)
+*/

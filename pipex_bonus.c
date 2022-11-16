@@ -6,12 +6,13 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/15 10:46:44 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/15 13:21:06 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+// TODO will need a loop to make pipes = cmds - 1.
 void	pipex(t_data *data)
 {
 	int	pid1;
