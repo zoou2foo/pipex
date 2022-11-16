@@ -6,11 +6,12 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/16 11:36:51 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/16 12:48:11 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
+NAME_BONUS = pipex_bonus
 
 SRCS = main.c \
 	srcs/pipex.c srcs/utils.c srcs/work_in_processes.c srcs/free_stuff.c \
