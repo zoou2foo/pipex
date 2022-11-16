@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/15 13:29:24 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/16 10:28:44 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ int	main(int ac, char **av, char **envp)
 	t_data	*data;
 
 	data = ft_calloc(sizeof(t_data), 1);
-	if (ac == 5)
+	if (ac >= 5)
 	{
-		init_struct(ac, av, envp, data);
-		if ((check_fds(data) == 1))
+		if (av[1] == "here_doc")
 		{
-			fill_tab_env(data);
-			pipex(data);
+			init_struct(ac, av, envp, data);
+			if ((check_fds(data) == 1))
+			{
+				fill_tab_env(data);
+				pipex(data);
+			}
+			else
+				write(2, "Error: permission denied for file", 34);
 		}
-		else
-			write(2, "Error: permission denied for file", 34);
 	}
 	else
 		write(2, "Error: not enough arguments\n", 28);
