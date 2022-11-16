@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/16 10:28:44 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/16 11:28:10 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **envp)
 		if (av[1] == "here_doc")
 		{
 			init_struct(ac, av, envp, data);
+			here_doc(data);
 			if ((check_fds(data) == 1))
 			{
 				fill_tab_env(data);
@@ -52,6 +53,28 @@ int	check_fds(t_data *data)
 	if (fd_2 < 0)
 		return (0);
 	return (1);
+}
+
+void	here_doc(t_data *data)
+{
+	char	*gnl_return;
+
+	while (1)
+	{
+		gnl_return = gnl_pipex();
+		if (!(ft_strncmp(gnl_return, data->av[1], ft_strlen(gnl_return))) == 0)
+			break ;
+	}
+}
+
+char	*gnl_pipex(void)
+{
+	char	buffer[10000];
+	int		size;
+
+	size = read(1, buffer, 10000);
+	buffer[size] = '\0';
+	return (ft_strdup(buffer));
 }
 
 /*
