@@ -1,1 +1,13 @@
-
+total 152
+-rw-r--r--    1 vjean  2022_quebec   1783 Nov 16 15:08 Makefile
+drwxr-xr-x   10 vjean  2022_quebec    340 Nov 16 16:07 bonus
+----------    1 vjean  2022_quebec     17 Nov 17 08:13 file1
+-rwxrwxrwx    1 vjean  2022_quebec     25 Nov 17 08:33 file2
+-rwxr-xr-x    1 vjean  2022_quebec      0 Nov 17 09:26 file3
+-rwxr-xr-x    1 vjean  2022_quebec     25 Nov 17 09:25 file4
+drwxr-xr-x    4 vjean  2022_quebec    136 Nov 16 11:40 includes
+drwxr-xr-x  104 vjean  2022_quebec   3536 Nov 17 09:24 libft
+-rw-r--r--    1 vjean  2022_quebec   3112 Nov  3 15:10 pew_pew.sh
+-rwxr-xr-x    1 vjean  2022_quebec  54184 Nov 17 09:24 pipex
+drwxr-xr-x    3 vjean  2022_quebec    102 Nov 17 08:36 pipex.dSYM
+drwxr-xr-x   12 vjean  2022_quebec    408 Nov 17 09:24 srcs

@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/16 16:07:19 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/17 16:26:30 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	main(int ac, char **av, char **envp)
 		// {
 		// }
 		// else
-		// 	write(2, "Error: permission denied for file", 34);
+		// 	write(2, "Error: permission denied", 24);
 	}
 	else
 		write(2, "Error: not enough arguments\n", 28);
 	close (data->pipe_fd[0]);
 	close (data->pipe_fd[1]);
 	free_dbl_ptr(data->paths);
+	free_dbl_ptr(data->cmd);
 	free(data);
 	return (0);
 }
@@ -51,5 +52,5 @@ int	check_fds(t_data *data)
 	return (1);
 }
 
-// besoin de revoir mon pipex, car si fichier1 ou cmd1 n'existe pas, il faut
-// qu'il effectue quand même la cmd2 dans fichier2. Surtout si cmd2 existe.
+//à quel moment dois-je free les choses que je dois free? Quand ma cmd n'existe
+//pas il faut que je check si je free bien mon tab_env...

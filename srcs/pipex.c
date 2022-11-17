@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/14 14:57:45 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/17 10:52:04 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,44 +42,38 @@ void	pipex(t_data *data)
 
 void	child_process(t_data *data)
 {
-	char	*cmd_path;
-	char	**cmd;
-
-	if (check_files(data, 1) == 1)
-	{
-		write(2, "Error: file does not exist (child1)\n", 37);
-		exit (0);
-	}
-	cmd = ft_split(data->av[2], ' ');
-	cmd_path = find_cmd(data, cmd[0]);
-	if (!cmd_path)
+	// if (check_files(data, 1) == 1)
+	// {
+	// 	write(2, "Error: file does not exist (child1)\n", 37);
+	// 	exit (0);
+	// }
+	data->cmd = ft_split(data->av[2], ' ');
+	data->cmd_path = find_cmd(data);
+	if (!data->cmd_path)
 	{
 		write(2, "Error: command does not exist(child1)\n", 39);
 		exit (0);
 	}
-	execute_child(data, cmd_path, cmd);
+	execute_child(data);
 }
 
 void	child2_process(t_data *data)
 {
-	char	*cmd_path;
-	char	**cmd;
-	int		fd_out;
+	//int		fd_out;
 
-	fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (check_files(data, 4) == 1)
-	{
-		write(2, "Error: file does not exist (in child2)\n", 40);
-		exit (0);
-	}
-	close(fd_out);
-	cmd = ft_split(data->av[3], ' ');
-	cmd_path = find_cmd(data, cmd[0]);
-	printf("Child2: %s\n", cmd_path);
-	if (cmd_path == NULL)
+	// fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	// if (check_files(data, 4) == 1)
+	// {
+	// 	write(2, "Error: file does not exist (in child2)\n", 40);
+	// 	exit (0);
+	// }
+	// close(fd_out);
+	data->cmd = ft_split(data->av[3], ' ');
+	data->cmd_path = find_cmd(data);
+	if (data->cmd_path == NULL)
 	{
 		write(2, "Error: command does not exist(child2)\n", 39);
 		exit (0);
 	}
-	execute_child2(data, cmd_path, cmd);
+	execute_child2(data);
 }
