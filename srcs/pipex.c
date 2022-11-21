@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/17 10:52:04 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/21 12:09:54 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,29 @@ void	pipex(t_data *data)
 	if (pipe(data->pipe_fd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
-		exit (0);
+		exit (1);
 	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
-		exit (0);
+		exit (1);
 	}
-	else if (pid1 == 0)
+	if (pid1 == 0)
 		child_process(data);
+	// waitpid(pid1, NULL, WNOHANG);
 	pid2 = fork();
 	if (pid2 == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
-		exit (0);
+		exit (1);
 	}
-	else if (pid2 == 0)
+	if (pid2 == 0)
 		child2_process(data);
+	// waitpid(pid2, NULL, WNOHANG);
+	
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
 }
 
 void	child_process(t_data *data)
@@ -52,7 +57,9 @@ void	child_process(t_data *data)
 	if (!data->cmd_path)
 	{
 		write(2, "Error: command does not exist(child1)\n", 39);
-		exit (0);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		exit (1);
 	}
 	execute_child(data);
 }
@@ -73,7 +80,9 @@ void	child2_process(t_data *data)
 	if (data->cmd_path == NULL)
 	{
 		write(2, "Error: command does not exist(child2)\n", 39);
-		exit (0);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		exit (1);
 	}
 	execute_child2(data);
 }
