@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/21 12:10:17 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:04:46 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ int	main(int ac, char **av, char **envp)
 		init_struct(ac, av, envp, data);
 		fill_tab_env(data);
 		pipex(data);
-		// if ((check_fds(data) == 1))
-		// {
-		// }
-		// else
-		// 	write(2, "Error: permission denied", 24);
 	}
 	else
 	{

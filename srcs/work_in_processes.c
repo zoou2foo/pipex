@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/21 12:07:40 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/21 14:47:16 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	execute_child(t_data *data)
 	fd_in = open(data->av[1], O_RDONLY, 0777);
 	if (fd_in < 0)
 	{
-		write(2, "Error: file1: permission denied", 31);
+		ft_putstr_fd("Error: ", 2);
+		ft_putstr_fd(data->av[1], 2);
+		ft_putstr_fd(": something bad happened\n", 2);
 		close(fd_in);
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
@@ -33,7 +35,6 @@ void	execute_child(t_data *data)
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(fd_in);
-	dprintf(2, "child1\n");
 	execve(data->cmd_path, data->cmd, data->envp);
 	exit (1);
 }
@@ -59,7 +60,6 @@ void	execute_child2(t_data *data)
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(fd_out);
-	dprintf(2, "child2\n");
 	execve(data->cmd_path, data->cmd, data->envp);
 	exit (1);
 }
