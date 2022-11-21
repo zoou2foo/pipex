@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/21 16:03:57 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/21 16:25:30 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ void	child_process(t_data *data)
 	data->cmd_path = find_cmd(data);
 	if (!data->cmd_path)
 	{
-		write(2, "Error: command does not exist(child1)\n", 39);
+		write(2, "Error: command does not exist\n", 39);
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
+		free_dbl_ptr(data->paths);
+		free_dbl_ptr(data->cmd);
+		free(data);
 		exit (1);
 	}
 	execute_child(data);
@@ -64,9 +67,12 @@ void	child2_process(t_data *data)
 	data->cmd_path = find_cmd(data);
 	if (data->cmd_path == NULL)
 	{
-		write(2, "Error: command does not exist(child2)\n", 39);
+		write(2, "Error: command does not exist\n", 39);
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
+		free_dbl_ptr(data->paths);
+		free_dbl_ptr(data->cmd);
+		free(data);
 		exit (1);
 	}
 	execute_child2(data);
