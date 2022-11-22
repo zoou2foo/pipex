@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/21 16:25:30 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 08:22:23 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	pipex(t_data *data)
 	}
 	if (pid2 == 0)
 		child2_process(data);
-	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	close_n_wait(data, pid1, pid2);
 }
 
 void	child_process(t_data *data)
@@ -76,4 +73,12 @@ void	child2_process(t_data *data)
 		exit (1);
 	}
 	execute_child2(data);
+}
+
+void	close_n_wait(t_data *data, int pid1, int pid2)
+{
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 }

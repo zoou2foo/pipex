@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/15 13:21:06 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 08:27:00 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	pipex(t_data *data)
 	if (pipe(data->pipe_fd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
-		exit (0);
+		exit (1);
 	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
-		exit (0);
+		exit (1);
 	}
 	else if (pid1 == 0)
 		child_process(data);
@@ -35,52 +35,51 @@ void	pipex(t_data *data)
 	if (pid2 == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
-		exit (0);
+		exit (1);
 	}
 	else if (pid2 == 0)
 		child2_process(data);
+	close_n_wait(data, pid1, pid2);
 }
 
 void	child_process(t_data *data)
 {
-	char	*cmd_path;
-	char	**cmd;
-
-	if (check_files(data, 1) == 1)
+	data->cmd = ft_split(data->av[2], ' ');
+	data->cmd_path = find_cmd(data);
+	if (!data->cmd_path)
 	{
-		write(2, "Error: file does not exist (child1)\n", 37);
-		exit (0);
+		write(2, "Error: command does not exist\n", 39);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		free_dbl_ptr(data->paths);
+		free_dbl_ptr(data->cmd);
+		free(data);
+		exit (1);
 	}
-	cmd = ft_split(data->av[2], ' ');
-	cmd_path = find_cmd(data, cmd[0]);
-	if (!cmd_path)
-	{
-		write(2, "Error: command does not exist(child1)\n", 39);
-		exit (0);
-	}
-	execute_child(data, cmd_path, cmd);
+	execute_child(data);
 }
 
 void	child2_process(t_data *data)
 {
-	char	*cmd_path;
-	char	**cmd;
-	int		fd_out;
+	data->cmd = ft_split(data->av[3], ' ');
+	data->cmd_path = find_cmd(data);
+	if (data->cmd_path == NULL)
+	{
+		write(2, "Error: command does not exist\n", 39);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		free_dbl_ptr(data->paths);
+		free_dbl_ptr(data->cmd);
+		free(data);
+		exit (1);
+	}
+	execute_child2(data);
+}
 
-	fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (check_files(data, 4) == 1)
-	{
-		write(2, "Error: file does not exist (in child2)\n", 40);
-		exit (0);
-	}
-	close(fd_out);
-	cmd = ft_split(data->av[3], ' ');
-	cmd_path = find_cmd(data, cmd[0]);
-	printf("Child2: %s\n", cmd_path);
-	if (cmd_path == NULL)
-	{
-		write(2, "Error: command does not exist(child2)\n", 39);
-		exit (0);
-	}
-	execute_child2(data, cmd_path, cmd);
+void	close_n_wait(t_data *data, int pid1, int pid2)
+{
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 }

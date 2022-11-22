@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:45:37 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/15 10:45:39 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 08:29:37 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,22 @@ void	fill_tab_env(t_data *data)
 	exit(0);
 }
 
-char	*find_cmd(t_data *data, char *cmd_tab)
+char	*find_cmd(t_data *data)
 {
 	int		i;
 	char	*cmd;
 
 	i = 0;
-	if (cmd_tab[0] == '/')
+	if (ft_strncmp(data->cmd[0], "/", 1) == 0)
 	{
-		if (access(cmd_tab, X_OK) == 0)
-			return (cmd_tab);
+		if (access(*data->cmd, X_OK) == 0)
+			return (*data->cmd);
 	}
 	while (data->paths[i])
 	{
-		cmd = ft_strjoin(data->paths[i], cmd_tab);
+		cmd = ft_strjoin(data->paths[i], *data->cmd);
 		if (access(cmd, F_OK | X_OK) == 0)
-		{
-			printf("found child2: %s\n", cmd);
 			return (cmd);
-		}
 		free(cmd);
 		i++;
 	}
@@ -78,18 +75,12 @@ int	check_files(t_data *data, int index)
 	if (index == 4)
 	{
 		if (access(data->av[4], F_OK) == 0)
-		{
-			printf("found file child2\n");
 			return (0);
-		}
 	}
 	else if (index == 1)
 	{
 		if (access(data->av[1], F_OK) == 0)
-		{
-			printf("found file child1\n");
 			return (0);
-		}
 	}
 	return (1);
 }

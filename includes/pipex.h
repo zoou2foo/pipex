@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/17 10:51:47 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 08:42:25 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_data{
 	char	**paths;
 	char	*cmd_path;
 	char	**cmd;
-	char	**paths_slash;
 	int		pipe_fd[2];
 }	t_data;
 
@@ -52,5 +51,7 @@ void	free_dbl_ptr(char **ptr);
 /* helpful functions to support other functions */
 int		size_of_tab(char **tab);
 int		check_fds(t_data *data);
+void	close_n_wait(t_data *data, int pid1, int pid2);
+void	put_error_message(t_data *data);
 
 #endif

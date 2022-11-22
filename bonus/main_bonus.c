@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/16 15:33:07 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 08:19:01 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,17 @@ int	main(int ac, char **av, char **envp)
 			here_doc(data);
 		else
 		{
-			if ((check_fds(data) == 1))
-			{
-				fill_tab_env(data);
-				pipex(data);
-			}
-			else
-				write(2, "Error: permission denied for file", 34);
+			fill_tab_env(data);
+			pipex(data);
 		}	
 	}
 	else
+	{
 		write(2, "Error: not enough arguments\n", 28);
-	close (data->pipe_fd[0]);
-	close (data->pipe_fd[1]);
+		exit (1);
+	}
 	free_dbl_ptr(data->paths);
+	free_dbl_ptr(data->cmd);
 	free(data);
 	return (0);
 }
