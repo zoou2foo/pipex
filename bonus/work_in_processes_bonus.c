@@ -6,11 +6,11 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:44:38 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 08:41:38 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 10:08:52 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	execute_child(t_data *data)
 {
@@ -37,7 +37,7 @@ void	execute_child(t_data *data)
 	exit (1);
 }
 
-void	execute_child2(t_data *data, char *cmd_path, char **cmd)
+void	execute_child2(t_data *data)
 {
 	int	fd_out;
 
@@ -58,7 +58,7 @@ void	execute_child2(t_data *data, char *cmd_path, char **cmd)
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(fd_out);
-	execve(cmd_path, cmd, data->envp);
+	execve(data->cmd_path, data->cmd, data->envp);
 	exit (0);
 }
 

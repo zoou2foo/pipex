@@ -6,11 +6,11 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 08:27:00 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 10:04:54 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 // TODO will need a loop to make pipes = cmds - 1.
 void	pipex(t_data *data)

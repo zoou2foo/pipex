@@ -6,11 +6,11 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 08:19:01 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/22 10:44:40 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	main(int ac, char **av, char **envp)
 {
@@ -60,7 +60,8 @@ void	here_doc(t_data *data)
 	while (1)
 	{
 		gnl_return = gnl_pipex();
-		if ((ft_strncmp(gnl_return, data->av[1], ft_strlen(gnl_return))) == 0)
+		if ((ft_strncmp(gnl_return, data->av[2], ft_strlen(gnl_return) - 1))
+			== 0)
 			break ;
 	}
 }
