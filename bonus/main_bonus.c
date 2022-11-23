@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/23 08:24:26 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/23 09:25:31 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac >= 5)
 	{
 		init_struct(ac, av, envp, data);
-		if (ft_strncmp(data->av[1], "here_doc", 8) == 0) //better to use ft_strlen than just put a random number?
+		if (ft_strncmp(data->av[1], "here_doc", ft_strlen(data->av[1])) == 0)
 			here_doc(data);
 		else
 		{
@@ -81,9 +81,8 @@ char	*gnl_pipex(void)
 }
 
 /*
-To implement here_doc: it will be one of the args (in fact, av[1]). I need
-to check if av[1] = here_doc; if yes, then I send it to a function to deal with
-it. I'll need to use get_next_line. 
-AND I send send multiple commands to my here_doc as it's the bonus.
-Double check the pdf of pipex (code quoi)
+il faut que je prenne le buffer pour rediriger dans le STDIN.
+Puis, continuer. Ne pas oublier de faire un while pour pipe et fork.
+pipe = cmds - 1;
+nombre de cmds = entre av[2] et av[last] (excluant 2 et last)
 */
