@@ -6,12 +6,16 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 10:44:40 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/23 08:24:26 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
+
+// here_doca 
+// here_doc
+// 12345678
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
@@ -20,7 +24,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac >= 5)
 	{
 		init_struct(ac, av, envp, data);
-		if (ft_strncmp(data->av[1], "here_doc", 8) == 0)
+		if (ft_strncmp(data->av[1], "here_doc", 8) == 0) //better to use ft_strlen than just put a random number?
 			here_doc(data);
 		else
 		{
