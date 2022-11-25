@@ -6,7 +6,7 @@
 /*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/25 10:29:27 by valeriejean      ###   ########.fr       */
+/*   Updated: 2022/11/25 13:42:58 by valeriejean      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	here_doc(t_data *data)
 			== 0)
 			break ;
 	}
+	data->gnl_return = gnl_return;
 	write(data->pipe_fd[1], gnl_return, ft_strlen(gnl_return));
 	dup2(data->pipe_fd[0], STDIN_FILENO);
 	free (gnl_return);

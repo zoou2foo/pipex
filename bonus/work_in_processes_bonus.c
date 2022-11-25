@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   work_in_processes_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
+/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:44:38 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 10:08:52 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/25 14:29:31 by valeriejean      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,40 @@
 
 void	execute_child(t_data *data)
 {
-	int	fd_in;
-
-	fd_in = open(data->av[1], O_RDONLY, 0777);
-	if (fd_in < 0)
-	{
-		put_error_message(data);
-		close(fd_in);
-		close(data->pipe_fd[0]);
-		close(data->pipe_fd[1]);
-		free_dbl_ptr(data->paths);
-		free_dbl_ptr(data->cmd);
-		free(data);
-		exit (1);
-	}
-	dup2(data->pipe_fd[1], STDOUT_FILENO);
-	dup2(fd_in, STDIN_FILENO);
-	close(data->pipe_fd[0]);
-	close(data->pipe_fd[1]);
-	close(fd_in);
-	execve(data->cmd_path, data->cmd, data->envp);
-	exit (1);
+	int fd_in;
+	int fd_out;
+	
+	
 }
+// ? a bit clueless here. I know that the first time around, if here_doc has 
+// ? called; you need to use your redirection that you have made in the
+// ? here_doc function. But after that, you don't need it anymore
+// ? When no here_doc, it's business as usual... or maybe not. Maybe I need a
+// ? while loop
+
+// {
+// 	int	fd_in;
+
+// 	fd_in = open(data->av[1], O_RDONLY, 0777);
+// 	if (fd_in < 0)
+// 	{
+// 		put_error_message(data);
+// 		close(fd_in);
+// 		close(data->pipe_fd[0]);
+// 		close(data->pipe_fd[1]);
+// 		free_dbl_ptr(data->paths);
+// 		free_dbl_ptr(data->cmd);
+// 		free(data);
+// 		exit (1);
+// 	}
+// 	dup2(data->pipe_fd[1], STDOUT_FILENO);
+// 	dup2(fd_in, STDIN_FILENO);
+// 	close(data->pipe_fd[0]);
+// 	close(data->pipe_fd[1]);
+// 	close(fd_in);
+// 	execve(data->cmd_path, data->cmd, data->envp);
+// 	exit (1);
+// }
 
 void	execute_child2(t_data *data)
 {

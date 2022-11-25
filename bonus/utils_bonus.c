@@ -6,7 +6,7 @@
 /*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:45:37 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/25 10:55:59 by valeriejean      ###   ########.fr       */
+/*   Updated: 2022/11/25 14:08:45 by valeriejean      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,4 @@ char	*find_cmd(t_data *data)
 		i++;
 	}
 	return (NULL);
-}
-
-int	check_files(t_data *data, int index)
-{
-	if (index == 4)
-	{
-		if (access(data->av[4], F_OK) == 0)
-			return (0);
-	}
-	else if (index == 1)
-	{
-		if (access(data->av[1], F_OK) == 0)
-			return (0);
-	}
-	return (1);
 }
