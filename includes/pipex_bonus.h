@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
+/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 10:07:25 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/25 11:16:18 by valeriejean      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ typedef struct s_data{
 	char	*cmd_path;
 	char	**cmd;
 	int		pipe_fd[2];
+	int		flag_heredoc;
+	int		cmds_nb;
+	int		pid;
+	int		cmds_nb_w_heredoc;
 }	t_data;
 
 /* function to organize my struct */
@@ -50,7 +54,6 @@ void	free_dbl_ptr(char **ptr);
 
 /* helpful functions to support other functions */
 int		size_of_tab(char **tab);
-int		check_fds(t_data *data);
 void	close_n_wait(t_data *data, int pid1, int pid2);
 void	put_error_message(t_data *data);
 
@@ -59,3 +62,5 @@ void	here_doc(t_data *data);
 char	*gnl_pipex(void);
 
 #endif
+
+// int check_fds(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
+/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:45:37 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 10:04:59 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/25 10:55:59 by valeriejean      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	init_struct(int ac, char **av, char **envp, t_data *data)
 	data->ac = ac;
 	data->av = av;
 	data->envp = envp;
+	data->flag_heredoc = 0;
+	data->cmds_nb = data->ac - 3;
+	data->cmds_nb_w_heredoc = data->ac - 4;
 }
 
 void	fill_tab_env(t_data *data)
