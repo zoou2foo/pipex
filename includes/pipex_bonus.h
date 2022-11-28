@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/25 14:08:52 by valeriejean      ###   ########.fr       */
+/*   Updated: 2022/11/28 09:43:25 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data{
 	int		cmds_nb;
 	int		pid;
 	int		cmds_nb_w_heredoc;
-	char	*gnl_return;
 }	t_data;
 
 /* function to organize my struct */
@@ -44,8 +43,8 @@ char	*find_cmd(t_data *data);
 
 /* functions all about processes */
 void	pipex(t_data *data);
-void	child_process(t_data *data);
-void	execute_child(t_data *data);
+void	child_process(t_data *data, int index);
+void	execute_child(t_data *data, int index);
 
 /* functions to free struff */
 void	free_dbl_ptr(char **ptr);

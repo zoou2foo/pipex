@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriejean <valeriejean@student.42.fr>    +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/25 13:42:58 by valeriejean      ###   ########.fr       */
+/*   Updated: 2022/11/28 11:19:45 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ int	main(int ac, char **av, char **envp)
 	{
 		init_struct(ac, av, envp, data);
 		if (ft_strncmp(data->av[1], "here_doc", ft_strlen(data->av[1])) == 0)
+		{
 			here_doc(data);
+			data->cmds_nb -= 1;
+		}
 		fill_tab_env(data);
-		pipex(data);	
+		if (data->flag_heredoc == 0)
+			open_fd_in(data);
+		pipex(data);
 	}
 	else
 	{
@@ -36,22 +41,29 @@ int	main(int ac, char **av, char **envp)
 	return (0);
 }
 
-
 void	here_doc(t_data *data)
 {
 	char	*gnl_return;
-	
+	int		pipe_hd[2];
+
 	data->flag_heredoc = 1;
+	if (pipe(pipe_hd) == -1)
+	{
+		write(2, "Error: invalid pipe fd\n", 24);
+		exit (1);
+	}
 	while (1)
 	{
 		gnl_return = gnl_pipex();
 		if ((ft_strncmp(gnl_return, data->av[2], ft_strlen(gnl_return) - 1))
 			== 0)
 			break ;
+		write(pipe_hd[1], gnl_return, ft_strlen(gnl_return));
+		free (gnl_return);
 	}
-	data->gnl_return = gnl_return;
-	write(data->pipe_fd[1], gnl_return, ft_strlen(gnl_return));
-	dup2(data->pipe_fd[0], STDIN_FILENO);
+	dup2(pipe_hd[0], STDIN_FILENO);
+	close(pipe_hd[0]);
+	close(pipe_hd[1]);
 	free (gnl_return);
 }
 
@@ -65,6 +77,23 @@ char	*gnl_pipex(void)
 	return (ft_strdup(buffer));
 }
 
+void	open_fd_in(t_data *data)
+{
+	int	fd_in;
+
+	fd_in = open(data->av[1], O_RDONLY);
+	if (fd_in < 0)
+	{
+		put_error_message(data);
+		close(fd_in);
+		free_dbl_ptr(data->paths);
+		free_dbl_ptr(data->cmd);
+		free(data);
+		exit (1);
+	}
+	dup2(fd_in, STDIN_FILENO);
+	close(fd_in);
+}
 
 // int	check_fds(t_data *data)
 // {
