@@ -6,75 +6,53 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:44:38 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 11:30:48 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/28 14:34:49 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-// ? gérer quand arrêter avant fileout (donc dernière commande)
-// ? si pas here_doc, ouvrir fd_in
-// si i = nb de cmd, redirige STDOUT pas dans le pipe
 
 void	execute_child(t_data *data, int index)
 {
 	int	fd_out;
 
-	fd_out = open(data->av[data->ac], O_WRONLY | O_TRUNC, 0777);
-	if (fd_out < 0)
+	if (index == data->cmds_nb - 1)
 	{
-		put_error_message(data);
+		fd_out = open(data->av[data->ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (fd_out < 0)
+		{
+			put_error_message(data, index);
+			close(fd_out);
+			close(data->pipe_fd[0]);
+			close(data->pipe_fd[1]);
+			free_dbl_ptr(data->paths);
+			free_dbl_ptr(data->cmd);
+			free(data);
+			exit (1);
+		}
+		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
-		close(data->pipe_fd[0]);
-		close(data->pipe_fd[1]);
-		free_dbl_ptr(data->paths);
-		free_dbl_ptr(data->cmd);
-		free(data);
-		exit (1);
-	}
-	if (index == data->cmds_nb)
-	{
-		dup2(data->pipe_fd[1], STDOUT_FILENO);
-		close(data->pipe_fd[1]);
-		close(data->pipe_fd[0]);
-		close(fd_out);
-		execve(data->cmd_path, data->cmd, data->envp);
-		exit (1);
 	}
 	else
 	{
-		
+		dup2(data->pipe_fd[0], STDIN_FILENO);
+		dup2(data->pipe_fd[1], STDOUT_FILENO);
 	}
-	
+	close(data->pipe_fd[1]);
+	close(data->pipe_fd[0]);
+	execve(data->cmd_path, data->cmd, data->envp);
+	exit (1);
 }
 
-void	put_error_message(t_data *data)
+void	put_error_message(t_data *data, int index)
 {
 	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(data->av[1], 2);
+	ft_putstr_fd(data->av[index], 2);
 	ft_putstr_fd(": something bad happened\n", 2);
 }
 
-// {
-// 	int	fd_in;
-
-// 	fd_in = open(data->av[1], O_RDONLY, 0777);
-// 	if (fd_in < 0)
-// 	{
-// 		put_error_message(data);
-// 		close(fd_in);
-// 		close(data->pipe_fd[0]);
-// 		close(data->pipe_fd[1]);
-// 		free_dbl_ptr(data->paths);
-// 		free_dbl_ptr(data->cmd);
-// 		free(data);
-// 		exit (1);
-// 	}
-// 	dup2(data->pipe_fd[1], STDOUT_FILENO);
-// 	dup2(fd_in, STDIN_FILENO);
-// 	close(data->pipe_fd[0]);
-// 	close(data->pipe_fd[1]);
-// 	close(fd_in);
-// 	execve(data->cmd_path, data->cmd, data->envp);
-// 	exit (1);
-// }
+// DRY: don't repeat yourself. Pour que ta fonction fasse une chose. Ex: 2 fois
+// execve dans execute child dans mon if et else. Alors, peu importe, le
+// outcome, il va execve anyway at the end. Alors, on sort la partie similaire
+// pour mettre à la fin.

@@ -6,7 +6,7 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/22 10:25:32 by vjean            ###   ########.fr        #
+#    Updated: 2022/11/28 13:22:38 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ fclean: clean
 	
 re: fclean all
 
-bonus:$(BONUS_OBJS)
+bonus: $(BONUS_OBJS)
 	$(call intro)
 	cd libft && make
 		@$(CC) -I includes $(BONUS_OBJS) $(LIBFT) -o $(NAME)

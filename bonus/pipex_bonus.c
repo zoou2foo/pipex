@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 11:31:45 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/28 14:22:29 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	pipex(t_data *data)
 		write(2, "Error: invalid pipe fd\n", 24);
 		exit (1);
 	}
-	while (i <= data->cmds_nb)
+	while (i < data->cmds_nb)
 	{
 		data->pid = fork();
 		if (data->pid == -1)
@@ -30,12 +30,23 @@ void	pipex(t_data *data)
 			write(2, "Error: invalid pipe fd\n", 24);
 			exit (1);
 		}
+		else if (data->pid > 0)
+		{
+			dup2(data->pipe_fd[0], STDIN_FILENO);
+			close(data->pipe_fd[0]);
+			close(data->pipe_fd[1]);
+		}
 		else if (data->pid == 0)
 			child_process(data, i);
 		i++;
 	}
 	close_n_wait(data);
 }
+// il faut dup2(data-pipe[0], STDIN_FILENO) et close les fd dans le parent
+// sinon l'enfant n'a pas l'info d'où prendre son information pour lire
+// Cela permet la connexion entre les enfants.
+// le parent dit à l'enfant où lire, puis l'enfant écrit au parent, puis le
+// parent dit à l'enfant où lire... ainsi de suite.
 
 void	child_process(t_data *data, int index)
 {
@@ -47,6 +58,8 @@ void	child_process(t_data *data, int index)
 		i = 2 + index;
 	// while (i < data->ac - 1) car déjà fait dans pipex
 	data->cmd = ft_split(data->av[i], ' ');
+	if (data->cmd_path)
+		free(data->cmd_path);
 	data->cmd_path = find_cmd(data);
 	if (!data->cmd_path)
 	{

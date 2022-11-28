@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:45:37 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 09:53:00 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/28 13:35:16 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	fill_tab_env(t_data *data)
 				i++;
 			}
 			*data->paths[0] += 5;
+			// data->paths[0] = ft_strtrim(data->paths[0], "PATH=");
 			return ;
 		}
 		i++;

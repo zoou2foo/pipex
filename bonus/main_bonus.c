@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 11:19:45 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/28 13:24:24 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	open_fd_in(t_data *data)
 	fd_in = open(data->av[1], O_RDONLY);
 	if (fd_in < 0)
 	{
-		put_error_message(data);
+		put_error_message(data, 1);
 		close(fd_in);
 		free_dbl_ptr(data->paths);
 		free_dbl_ptr(data->cmd);
@@ -94,24 +94,3 @@ void	open_fd_in(t_data *data)
 	dup2(fd_in, STDIN_FILENO);
 	close(fd_in);
 }
-
-// int	check_fds(t_data *data)
-// {
-// 	int	fd_1;
-// 	int	fd_2;
-
-// 	fd_1 = open(data->av[1], O_RDONLY);
-// 	fd_2 = open(data->av[4], O_WRONLY);
-// 	if (fd_1 < 0)
-// 		return (0);
-// 	if (fd_2 < 0)
-// 		return (0);
-// 	return (1);
-// }
-
-// in the main, after if here_doc
-// else
-// 		{
-// 			fill_tab_env(data);
-// 			pipex(data);
-// 		}	
