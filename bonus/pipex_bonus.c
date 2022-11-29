@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 14:22:29 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/29 10:24:14 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,10 @@ void	pipex(t_data *data)
 	int	i;
 
 	i = 0;
-	if (pipe(data->pipe_fd) == -1)
-	{
-		write(2, "Error: invalid pipe fd\n", 24);
-		exit (1);
-	}
 	while (i < data->cmds_nb)
 	{
-		data->pid = fork();
-		if (data->pid == -1)
-		{
-			write(2, "Error: invalid pipe fd\n", 24);
-			exit (1);
-		}
-		else if (data->pid > 0)
+		pipe_error(data);
+		if (data->pid > 0)
 		{
 			dup2(data->pipe_fd[0], STDIN_FILENO);
 			close(data->pipe_fd[0]);
@@ -56,7 +46,6 @@ void	child_process(t_data *data, int index)
 		i = 3 + index;
 	else
 		i = 2 + index;
-	// while (i < data->ac - 1) car déjà fait dans pipex
 	data->cmd = ft_split(data->av[i], ' ');
 	if (data->cmd_path)
 		free(data->cmd_path);
@@ -71,12 +60,30 @@ void	child_process(t_data *data, int index)
 		free(data);
 		exit (1);
 	}
-	execute_child(data, i);
+	execute_child(data, index);
 }
+
+// ^ après le premier if else.  while (i < data->ac - 1) car déjà 
+// fait dans pipex
 
 void	close_n_wait(t_data *data)
 {
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	waitpid(data->pid, NULL, 0);
+}
+
+void	pipe_error(t_data *data)
+{
+	if (pipe(data->pipe_fd) == -1)
+	{
+		write(2, "Error: invalid pipe fd\n", 24);
+		exit (1);
+	}
+	data->pid = fork();
+	if (data->pid == -1)
+	{
+		write(2, "Error: invalid pipe fd\n", 24);
+		exit (1);
+	}
 }

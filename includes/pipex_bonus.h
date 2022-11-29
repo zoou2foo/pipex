@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 13:24:35 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/29 10:24:41 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int		size_of_tab(char **tab);
 void	close_n_wait(t_data *data);
 void	put_error_message(t_data *data, int index);
 void	open_fd_in(t_data *data);
+void	error_n_free(t_data *data, int fd_out, int index);
+void	pipe_error(t_data *data);
 
 /* deal with here_doc */
 void	here_doc(t_data *data);
