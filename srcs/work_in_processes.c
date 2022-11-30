@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 12:46:46 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 13:40:08 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	execute_child(t_data *data)
 		close(fd_in);
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
+		free(data->cmd_path);
 		free_dbl_ptr(data->paths);
 		free_dbl_ptr(data->cmd);
 		free(data);
