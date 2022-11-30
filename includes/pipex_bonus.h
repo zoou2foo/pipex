@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/29 10:24:41 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 11:44:13 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef struct s_data{
 	int		pid;
 	int		cmds_nb_w_heredoc;
 }	t_data;
+
+/* Error message */
+# define ERROR_CMD "Error: command does not exist"
+# define ERROR_PIPE "Error: invalid pipe fd"
 
 /* function to organize my struct */
 void	init_struct(int ac, char **av, char **envp, t_data *data);

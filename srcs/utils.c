@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 08:38:17 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 11:16:03 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	fill_tab_env(t_data *data)
 	{
 		if (ft_strncmp(data->envp[i], "PATH=", 5) == 0)
 		{
-			data->paths = ft_split(data->envp[i], ':');
+			data->paths = ft_split(&data->envp[i][5], ':');
 			i = 0;
 			while (data->paths[i])
 			{
@@ -38,7 +38,7 @@ void	fill_tab_env(t_data *data)
 				data->paths[i] = tmp;
 				i++;
 			}
-			*data->paths[0] += 5;
+			//data->paths[0] = ft_strtrim(data->paths[0], "PATH=");
 			return ;
 		}
 		i++;

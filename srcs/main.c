@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/21 16:04:46 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 10:40:52 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **envp)
 	}
 	else
 	{
-		write(2, "Error: not enough arguments\n", 28);
+		write(2, "Error: not enough arguments or too many\n", 41);
 		exit (1);
 	}
 	free_dbl_ptr(data->paths);
@@ -33,20 +33,3 @@ int	main(int ac, char **av, char **envp)
 	free(data);
 	return (0);
 }
-
-int	check_fds(t_data *data)
-{
-	int	fd_1;
-	int	fd_2;
-
-	fd_1 = open(data->av[1], O_RDONLY);
-	fd_2 = open(data->av[4], O_WRONLY);
-	if (fd_1 < 0)
-		return (0);
-	if (fd_2 < 0)
-		return (0);
-	return (1);
-}
-
-//à quel moment dois-je free les choses que je dois free? Quand ma cmd n'existe
-//pas il faut que je check si je free bien mon tab_env...

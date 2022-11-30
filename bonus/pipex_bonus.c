@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/29 10:24:14 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 11:45:03 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	child_process(t_data *data, int index)
 	data->cmd_path = find_cmd(data);
 	if (!data->cmd_path)
 	{
-		write(2, "Error: command does not exist\n", 39);
+		write(2, ERROR_CMD, ft_strlen(ERROR_CMD));
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
 		free_dbl_ptr(data->paths);
@@ -77,13 +77,13 @@ void	pipe_error(t_data *data)
 {
 	if (pipe(data->pipe_fd) == -1)
 	{
-		write(2, "Error: invalid pipe fd\n", 24);
+		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
 	data->pid = fork();
 	if (data->pid == -1)
 	{
-		write(2, "Error: invalid pipe fd\n", 24);
+		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
 }

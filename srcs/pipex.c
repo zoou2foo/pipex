@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/22 08:22:23 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 11:46:22 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	pipex(t_data *data)
 
 	if (pipe(data->pipe_fd) == -1)
 	{
-		write(2, "Error: invalid pipe fd\n", 24);
+		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
 	pid1 = fork();
 	if (pid1 == -1)
 	{
-		write(2, "Error: invalid pipe fd\n", 24);
+		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
 	if (pid1 == 0)
@@ -33,7 +33,7 @@ void	pipex(t_data *data)
 	pid2 = fork();
 	if (pid2 == -1)
 	{
-		write(2, "Error: invalid pipe fd\n", 24);
+		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
 	if (pid2 == 0)
@@ -47,7 +47,7 @@ void	child_process(t_data *data)
 	data->cmd_path = find_cmd(data);
 	if (!data->cmd_path)
 	{
-		write(2, "Error: command does not exist\n", 39);
+		write(2, ERROR_CMD, ft_strlen(ERROR_CMD));
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
 		free_dbl_ptr(data->paths);
@@ -64,7 +64,8 @@ void	child2_process(t_data *data)
 	data->cmd_path = find_cmd(data);
 	if (data->cmd_path == NULL)
 	{
-		write(2, "Error: command does not exist\n", 39);
+		write(2, ERROR_CMD, ft_strlen(ERROR_CMD));
+		close(open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777));
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
 		free_dbl_ptr(data->paths);
