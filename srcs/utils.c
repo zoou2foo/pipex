@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/17 16:06:27 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 08:38:17 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,3 @@ char	*find_cmd(t_data *data)
 	return (NULL);
 }
 
-int	check_files(t_data *data, int index)
-{
-	if (index == 4)
-	{
-		if (access(data->av[4], F_OK | W_OK) == 0)
-			return (0);
-	}
-	else if (index == 1)
-	{
-		if (access(data->av[1], F_OK | R_OK) == 0)
-			return (0);
-	}
-	return (1);
-}
