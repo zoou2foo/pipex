@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/28 13:24:24 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 15:20:30 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,17 @@ int	main(int ac, char **av, char **envp)
 
 void	here_doc(t_data *data)
 {
-	char	*gnl_return;
-	int		pipe_hd[2];
-
-	data->flag_heredoc = 1;
-	if (pipe(pipe_hd) == -1)
+	if (data->ac >= 6)
 	{
-		write(2, "Error: invalid pipe fd\n", 24);
+		data->flag_heredoc = 1;
+		execute_hd(data);
+	}
+	else
+	{
+		write(2, ERROR_HD, ft_strlen(ERROR_HD));
+		free(data);
 		exit (1);
 	}
-	while (1)
-	{
-		gnl_return = gnl_pipex();
-		if ((ft_strncmp(gnl_return, data->av[2], ft_strlen(gnl_return) - 1))
-			== 0)
-			break ;
-		write(pipe_hd[1], gnl_return, ft_strlen(gnl_return));
-		free (gnl_return);
-	}
-	dup2(pipe_hd[0], STDIN_FILENO);
-	close(pipe_hd[0]);
-	close(pipe_hd[1]);
-	free (gnl_return);
 }
 
 char	*gnl_pipex(void)
@@ -93,4 +82,29 @@ void	open_fd_in(t_data *data)
 	}
 	dup2(fd_in, STDIN_FILENO);
 	close(fd_in);
+}
+
+void	execute_hd(t_data *data)
+{
+	char	*gnl_return;
+	int		pipe_hd[2];
+
+	if (pipe(pipe_hd) == -1)
+	{
+		write(2, "Error: invalid pipe fd\n", 24);
+		exit (1);
+	}
+	while (1)
+	{
+		gnl_return = gnl_pipex();
+		if ((ft_strncmp(gnl_return, data->av[2], ft_strlen(gnl_return) - 1))
+			== 0)
+			break ;
+		write(pipe_hd[1], gnl_return, ft_strlen(gnl_return));
+		free (gnl_return);
+	}
+	dup2(pipe_hd[0], STDIN_FILENO);
+	close(pipe_hd[0]);
+	close(pipe_hd[1]);
+	free (gnl_return);
 }

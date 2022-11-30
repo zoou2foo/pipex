@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:44:38 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 13:22:28 by vjean            ###   ########.fr       */
+/*   Updated: 2022/11/30 14:58:41 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ void	execute_child(t_data *data, int index)
 
 	if (index == data->cmds_nb - 1)
 	{
-		fd_out = open(data->av[data->ac - 1], O_WRONLY | O_CREAT
-				| O_TRUNC, 0777);
+		if (data->flag_heredoc == 1)
+			fd_out = open(data->av[data->ac - 1], O_WRONLY | O_CREAT
+					| O_APPEND, 0777);
+		else
+			fd_out = open(data->av[data->ac - 1], O_WRONLY | O_CREAT
+					| O_TRUNC, 0777);
 		if (fd_out < 0)
 			error_n_free(data, fd_out, index);
 		dup2(fd_out, STDOUT_FILENO);
