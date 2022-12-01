@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 11:46:22 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/01 16:43:13 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	pipex(t_data *data)
 
 void	child_process(t_data *data)
 {
+	data->fd_in = open(data->av[1], O_RDONLY, 0777);
+	data->fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	check_args(data);
 	data->cmd = ft_split(data->av[2], ' ');
 	data->cmd_path = find_cmd(data);
 	if (!data->cmd_path)
@@ -50,6 +53,8 @@ void	child_process(t_data *data)
 		write(2, ERROR_CMD, ft_strlen(ERROR_CMD));
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
+		close(data->fd_in);
+		close(data->fd_out);
 		free_dbl_ptr(data->paths);
 		free_dbl_ptr(data->cmd);
 		free(data);

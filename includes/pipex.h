@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 12:47:12 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/01 16:33:23 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 typedef struct s_data{
 	int		ac;
+	int		fd_in;
+	int		fd_out;
 	char	**av;
 	char	**envp;
 	char	**paths;
@@ -33,6 +35,7 @@ typedef struct s_data{
 /* Error message */
 # define ERROR_CMD "Error: command does not exist"
 # define ERROR_PIPE "Error: invalid pipe fd"
+# define NO_CMD "Error: no command"
 
 /* function to organize my struct */
 void	init_struct(int ac, char **av, char **envp, t_data *data);
@@ -40,6 +43,7 @@ void	init_struct(int ac, char **av, char **envp, t_data *data);
 /* functions to check arguments received */
 void	fill_tab_env(t_data *data);
 char	*find_cmd(t_data *data);
+void	check_args(t_data *data);
 
 /* functions all about processes */
 void	pipex(t_data *data);
