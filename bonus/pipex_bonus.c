@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/02 09:14:23 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/03 11:17:06 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	child_process(t_data *data, int index)
 		i = 3 + index;
 	else
 		i = 2 + index;
+	open_fd_out(data, index);
+	check_args(data, i);
 	data->cmd = ft_split(data->av[i], ' ');
 	if (data->cmd_path)
 		free(data->cmd_path);
@@ -86,4 +88,16 @@ void	pipe_error(t_data *data)
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
+}
+
+void	open_fd_out(t_data *data, int index)
+{
+	if (data->flag_heredoc == 1)
+		data->fd_out = open(data->av[data->ac - 1], O_WRONLY | O_CREAT
+				| O_APPEND, 0777);
+	else
+		data->fd_out = open(data->av[data->ac - 1], O_WRONLY | O_CREAT
+				| O_TRUNC, 0777);
+	if (data->fd_out < 0)
+		error_n_free(data, index);
 }
