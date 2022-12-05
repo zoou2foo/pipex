@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 12:28:47 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 13:26:37 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	execute_hd(t_data *data)
 {
 	char	*gnl_return;
 	int		pipe_hd[2];
+	char	*tmp;
 
 	if (pipe(pipe_hd) == -1)
 	{
@@ -99,10 +100,14 @@ void	execute_hd(t_data *data)
 	while (1)
 	{
 		gnl_return = gnl_pipex();
-		if ((ft_strncmp(ft_strtrim(gnl_return, "\n"), data->av[2],
-					ft_strlen(gnl_return))) == 0)
+		tmp = ft_strtrim(gnl_return, "\n");
+		if ((ft_strncmp(tmp, data->av[2], ft_strlen(gnl_return))) == 0)
+		{
+			free(tmp);
 			break ;
+		}
 		write(pipe_hd[1], gnl_return, ft_strlen(gnl_return));
+		free(tmp);
 		free (gnl_return);
 	}
 	dup2(pipe_hd[0], STDIN_FILENO);
