@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/01 16:33:23 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 08:56:36 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data{
 	char	*cmd_path;
 	char	**cmd;
 	int		pipe_fd[2];
+	int		pid1;
+	int		pid2;
 }	t_data;
 
 /* Error message */
@@ -56,7 +58,8 @@ void	child2_process(t_data *data);
 void	free_dbl_ptr(char **ptr);
 
 /* helpful functions to support other functions */
-void	close_n_wait(t_data *data, int pid1, int pid2);
+void	close_n_wait(t_data *data);
 void	put_error_message(t_data *data);
+void	open_n_check(t_data *data);
 
 #endif

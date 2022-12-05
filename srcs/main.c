@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/03 12:36:50 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 09:05:20 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 5)
 	{
 		init_struct(ac, av, envp, data);
+		data->fd_in = open(data->av[1], O_RDONLY, 0777);
+		data->fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		fill_tab_env(data);
 		pipex(data);
 	}
@@ -28,6 +30,8 @@ int	main(int ac, char **av, char **envp)
 		write(2, "Error: not enough arguments or too many\n", 41);
 		exit (1);
 	}
+	close(data->fd_in);
+	close(data->fd_out);
 	free_dbl_ptr(data->paths);
 	free_dbl_ptr(data->cmd);
 	free(data);

@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/03 14:11:27 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 09:04:07 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,33 @@
 
 void	pipex(t_data *data)
 {
-	int	pid1;
-	int	pid2;
-
+	check_args(data);
 	if (pipe(data->pipe_fd) == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
-	pid1 = fork();
-	if (pid1 == -1)
+	data->pid1 = fork();
+	if (data->pid1 == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
-	if (pid1 == 0)
+	if (data->pid1 == 0)
 		child_process(data);
-	pid2 = fork();
-	if (pid2 == -1)
+	data->pid2 = fork();
+	if (data->pid2 == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
 		exit (1);
 	}
-	if (pid2 == 0)
+	if (data->pid2 == 0)
 		child2_process(data);
-	close_n_wait(data, pid1, pid2);
+	close_n_wait(data);
 }
 
 void	child_process(t_data *data)
 {
-	data->fd_in = open(data->av[1], O_RDONLY, 0777);
-	data->fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	check_args(data);
 	data->cmd = ft_split(data->av[2], ' ');
 	data->cmd_path = find_cmd(data);
 	if (!data->cmd_path)
@@ -83,10 +78,17 @@ void	child2_process(t_data *data)
 	execute_child2(data);
 }
 
-void	close_n_wait(t_data *data, int pid1, int pid2)
+void	close_n_wait(t_data *data)
 {
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	waitpid(data->pid1, NULL, 0);
+	waitpid(data->pid2, NULL, 0);
+}
+
+void	open_n_check(t_data *data)
+{
+	//data->fd_in = open(data->av[1], O_RDONLY, 0777);
+	//data->fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	check_args(data);
 }
