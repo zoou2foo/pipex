@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 15:20:30 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:28:47 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int ac, char **av, char **envp)
 	else
 	{
 		write(2, "Error: not enough arguments\n", 28);
+		free(data);
 		exit (1);
 	}
 	free_dbl_ptr(data->paths);
@@ -92,13 +93,14 @@ void	execute_hd(t_data *data)
 	if (pipe(pipe_hd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
+		free(data);
 		exit (1);
 	}
 	while (1)
 	{
 		gnl_return = gnl_pipex();
-		if ((ft_strncmp(gnl_return, data->av[2], ft_strlen(gnl_return) - 1))
-			== 0)
+		if ((ft_strncmp(ft_strtrim(gnl_return, "\n"), data->av[2],
+					ft_strlen(gnl_return))) == 0)
 			break ;
 		write(pipe_hd[1], gnl_return, ft_strlen(gnl_return));
 		free (gnl_return);

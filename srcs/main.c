@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 09:05:20 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:15:52 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av, char **envp)
 	else
 	{
 		write(2, "Error: not enough arguments or too many\n", 41);
+		free(data);
 		exit (1);
 	}
 	close(data->fd_in);
@@ -65,4 +66,11 @@ void	check_args(t_data *data)
 		free(data);
 		exit (1);
 	}
+}
+
+void	free_stuff(t_data *data)
+{
+	free_dbl_ptr(data->paths);
+	free_dbl_ptr(data->cmd);
+	free(data);
 }

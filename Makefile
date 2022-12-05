@@ -6,7 +6,7 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/11/30 08:28:01 by vjean            ###   ########.fr        #
+#    Updated: 2022/12/05 12:12:13 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ define intro
 endef
 
 .c.o:
-		@$(CC)$(CFLAGS) -I includes -c $< -o $(<:.c=.o)
+		@$(CC) $(CFLAGS) -I includes -c $< -o $(<:.c=.o)
 
 RM = rm -fr
 
@@ -44,7 +44,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(call intro)
 	cd libft && make
-		@$(CC) -I includes $(OBJS) $(LIBFT)  -o $(NAME)
+		@$(CC) $(CFLAGS) -I includes $(OBJS) $(LIBFT)  -o $(NAME)
 		
 exec: re $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all ./pipex

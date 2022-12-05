@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:45:02 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 09:04:07 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:17:12 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	pipex(t_data *data)
 	if (data->pid1 == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
+		free_stuff(data);
 		exit (1);
 	}
 	if (data->pid1 == 0)
@@ -32,6 +33,7 @@ void	pipex(t_data *data)
 	if (data->pid2 == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
+		free_stuff(data);
 		exit (1);
 	}
 	if (data->pid2 == 0)
@@ -84,11 +86,4 @@ void	close_n_wait(t_data *data)
 	close(data->pipe_fd[1]);
 	waitpid(data->pid1, NULL, 0);
 	waitpid(data->pid2, NULL, 0);
-}
-
-void	open_n_check(t_data *data)
-{
-	//data->fd_in = open(data->av[1], O_RDONLY, 0777);
-	//data->fd_out = open(data->av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	check_args(data);
 }

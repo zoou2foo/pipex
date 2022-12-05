@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 08:35:30 by vjean             #+#    #+#             */
-/*   Updated: 2022/11/30 13:55:45 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:25:06 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	fill_tab_env(t_data *data)
 				data->paths[i] = tmp;
 				i++;
 			}
-			//data->paths[0] = ft_strtrim(data->paths[0], "PATH=");
 			return ;
 		}
 		i++;
 	}
 	i = 0;
 	write(2, "Environment variables not found\n", 32);
-	exit(0);
+	free(data);
+	exit (1);
 }
 
 char	*find_cmd(t_data *data)

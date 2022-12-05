@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:45:37 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/02 14:48:21 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:26:53 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	fill_tab_env(t_data *data)
 		i++;
 	}
 	i = 0;
-	write(2, "Environment variables not found\n", 32);
-	exit(0);
+	error_fill_tab(data);
+	exit (1);
 }
 
 char	*find_cmd(t_data *data)
@@ -70,4 +70,10 @@ char	*find_cmd(t_data *data)
 		i++;
 	}
 	return (NULL);
+}
+
+void	error_fill_tab(t_data *data)
+{
+	write(2, "Environment variables not found\n", 32);
+	free(data);
 }

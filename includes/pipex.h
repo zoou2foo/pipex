@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:44:51 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 08:56:36 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:16:27 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
-# include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -35,9 +33,9 @@ typedef struct s_data{
 }	t_data;
 
 /* Error message */
-# define ERROR_CMD "Error: command does not exist"
-# define ERROR_PIPE "Error: invalid pipe fd"
-# define NO_CMD "Error: no command"
+# define ERROR_CMD "Error: command does not exist\n"
+# define ERROR_PIPE "Error: invalid pipe fd\n"
+# define NO_CMD "Error: no command\n"
 
 /* function to organize my struct */
 void	init_struct(int ac, char **av, char **envp, t_data *data);
@@ -56,6 +54,7 @@ void	child2_process(t_data *data);
 
 /* functions to free stuff */
 void	free_dbl_ptr(char **ptr);
+void	free_stuff(t_data *data);
 
 /* helpful functions to support other functions */
 void	close_n_wait(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/03 11:16:37 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:27:08 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define PIPEX_BONUS_H
 
 # include "../libft/libft.h"
-# include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -37,10 +35,10 @@ typedef struct s_data{
 }	t_data;
 
 /* Error message */
-# define ERROR_CMD "Error: command does not exist"
-# define ERROR_PIPE "Error: invalid pipe fd"
-# define ERROR_HD "Error: problem with here_doc"
-# define NO_CMD "Error: no command"
+# define ERROR_CMD "Error: command does not exist\n"
+# define ERROR_PIPE "Error: invalid pipe fd\n"
+# define ERROR_HD "Error: problem with here_doc\n"
+# define NO_CMD "Error: no command\n"
 
 /* function to organize my struct */
 void	init_struct(int ac, char **av, char **envp, t_data *data);
@@ -58,6 +56,8 @@ void	execute_child(t_data *data, int index);
 void	free_dbl_ptr(char **ptr);
 void	error_n_free(t_data *data, int index);
 void	check_args_close_n_free(t_data *data);
+void	free_stuff(t_data *data);
+void	error_fill_tab(t_data *data);
 
 /* helpful functions to support other functions */
 int		size_of_tab(char **tab);

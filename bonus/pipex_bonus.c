@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:43:45 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/03 11:17:06 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/05 12:23:21 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ void	pipe_error(t_data *data)
 	if (pipe(data->pipe_fd) == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
+		free_stuff(data);
 		exit (1);
 	}
 	data->pid = fork();
 	if (data->pid == -1)
 	{
 		write(2, ERROR_PIPE, ft_strlen(ERROR_PIPE));
+		free_stuff(data);
 		exit (1);
 	}
 }
