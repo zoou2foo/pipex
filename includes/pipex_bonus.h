@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 08:37:33 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 12:27:08 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/07 09:25:07 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data{
 	char	*cmd_path;
 	char	**cmd;
 	int		pipe_fd[2];
+	int		pipe_hd[2];
 	int		flag_heredoc;
 	int		cmds_nb;
 	int		pid;
@@ -58,6 +59,7 @@ void	error_n_free(t_data *data, int index);
 void	check_args_close_n_free(t_data *data);
 void	free_stuff(t_data *data);
 void	error_fill_tab(t_data *data);
+void	close_pipe_n_free(t_data *data, char *gnl_return);
 
 /* helpful functions to support other functions */
 int		size_of_tab(char **tab);

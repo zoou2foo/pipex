@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:44:38 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/03 11:17:02 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/07 09:06:54 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	execute_child(t_data *data, int index)
 		dup2(data->pipe_fd[1], STDOUT_FILENO);
 	close(data->pipe_fd[1]);
 	close(data->pipe_fd[0]);
+	close(data->fd_out);
 	execve(data->cmd_path, data->cmd, data->envp);
 	exit (1);
 }

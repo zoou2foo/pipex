@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:46:07 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 13:26:37 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/07 09:25:22 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	main(int ac, char **av, char **envp)
 		free(data);
 		exit (1);
 	}
-	free_dbl_ptr(data->paths);
-	free_dbl_ptr(data->cmd);
-	free(data);
+	free_stuff(data);
 	return (0);
 }
 
@@ -69,29 +67,26 @@ char	*gnl_pipex(void)
 
 void	open_fd_in(t_data *data)
 {
-	int	fd_in;
-
-	fd_in = open(data->av[1], O_RDONLY);
-	if (fd_in < 0)
+	data->fd_in = open(data->av[1], O_RDONLY);
+	if (data->fd_in < 0)
 	{
 		put_error_message(data, 1);
-		close(fd_in);
+		close(data->fd_in);
 		free_dbl_ptr(data->paths);
 		free_dbl_ptr(data->cmd);
 		free(data);
 		exit (1);
 	}
-	dup2(fd_in, STDIN_FILENO);
-	close(fd_in);
+	dup2(data->fd_in, STDIN_FILENO);
+	close(data->fd_in);
 }
 
 void	execute_hd(t_data *data)
 {
 	char	*gnl_return;
-	int		pipe_hd[2];
 	char	*tmp;
 
-	if (pipe(pipe_hd) == -1)
+	if (pipe(data->pipe_hd) == -1)
 	{
 		write(2, "Error: invalid pipe fd\n", 24);
 		free(data);
@@ -106,12 +101,10 @@ void	execute_hd(t_data *data)
 			free(tmp);
 			break ;
 		}
-		write(pipe_hd[1], gnl_return, ft_strlen(gnl_return));
+		write(data->pipe_hd[1], gnl_return, ft_strlen(gnl_return));
 		free(tmp);
 		free (gnl_return);
 	}
-	dup2(pipe_hd[0], STDIN_FILENO);
-	close(pipe_hd[0]);
-	close(pipe_hd[1]);
-	free (gnl_return);
+	dup2(data->pipe_hd[0], STDIN_FILENO);
+	close_pipe_n_free(data, gnl_return);
 }
