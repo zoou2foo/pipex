@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:05:16 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/05 08:48:22 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/07 10:28:18 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	execute_child(t_data *data)
 	if (data->fd_in < 0)
 	{
 		put_error_message(data);
-		close(data->fd_in);
+		close(data->fd_out);
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
 		free(data->cmd_path);
@@ -31,6 +31,7 @@ void	execute_child(t_data *data)
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(data->fd_in);
+	close(data->fd_out);
 	execve(data->cmd_path, data->cmd, data->envp);
 	exit (1);
 }
@@ -40,7 +41,7 @@ void	execute_child2(t_data *data)
 	if (data->fd_out < 0)
 	{
 		put_error_message(data);
-		close(data->fd_out);
+		close(data->fd_in);
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
 		free_dbl_ptr(data->paths);
@@ -53,6 +54,7 @@ void	execute_child2(t_data *data)
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
 	close(data->fd_out);
+	close(data->fd_in);
 	execve(data->cmd_path, data->cmd, data->envp);
 	exit (1);
 }

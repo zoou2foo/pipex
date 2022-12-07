@@ -6,7 +6,7 @@
 #    By: vjean <vjean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:41:48 by vjean             #+#    #+#              #
-#    Updated: 2022/12/07 09:26:00 by vjean            ###   ########.fr        #
+#    Updated: 2022/12/07 10:30:03 by vjean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc 
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 BONUS_OBJS = $(BONUS:.c=.o)
 

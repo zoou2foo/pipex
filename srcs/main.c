@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:33:23 by vjean             #+#    #+#             */
-/*   Updated: 2022/12/06 15:26:17 by vjean            ###   ########.fr       */
+/*   Updated: 2022/12/07 10:23:33 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,3 @@ void	free_stuff(t_data *data)
 	free_dbl_ptr(data->cmd);
 	free(data);
 }
-
-// COMMENT blablabla
